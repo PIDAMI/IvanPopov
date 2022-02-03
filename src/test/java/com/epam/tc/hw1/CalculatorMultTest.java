@@ -1,3 +1,6 @@
+package com.epam.tc.hw1;
+
+import org.assertj.core.data.Offset;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -17,13 +20,13 @@ public class CalculatorMultTest extends BaseCalculatorOperTest{
     }
 
     @DataProvider(name = "dataForMultDouble")
-    public Object[][] getDataForSumDouble(){
+    public Object[][] getDataForMultDouble(){
         return new Object[][]{
                 { 0., 9., 0. },
                 {1., 1_000_000., 1_000_000.},
                 {-1., 34.33, -34.33},
-                {1.12, 10, 11.2},
-                {-1.5, 45, -67.5},
+                {1.12, 10., 11.2},
+                {-1.5, 45., -67.5},
         };
     }
 
@@ -45,7 +48,8 @@ public class CalculatorMultTest extends BaseCalculatorOperTest{
     @Test(dataProvider = "dataForMultDouble")
     public void testMultDouble(double x, double y, double expected) {
         double actual = calculator.mult(x,y);
-        assertThat(actual).isEqualTo(expected);
+        assertThat(actual).isCloseTo(expected,
+                Offset.offset(this.DOUBLE_OFFSET));
     }
 
     @Test(dataProvider = "dataForMultDouble")
@@ -53,7 +57,8 @@ public class CalculatorMultTest extends BaseCalculatorOperTest{
                                             double y, double expected) {
         double oneWay = calculator.sum(x,y);
         double otherWay = calculator.sum(y,x);
-        assertThat(oneWay).isEqualTo(otherWay);
+        assertThat(oneWay).isCloseTo(otherWay,
+                Offset.offset(this.DOUBLE_OFFSET));
     }
 
 }

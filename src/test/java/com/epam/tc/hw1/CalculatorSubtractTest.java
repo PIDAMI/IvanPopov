@@ -1,5 +1,6 @@
-import com.epam.tat.module4.Calculator;
-import org.assertj.core.api.Assert;
+package com.epam.tc.hw1;
+
+import org.assertj.core.data.Offset;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -12,10 +13,10 @@ public class CalculatorSubtractTest extends BaseCalculatorOperTest{
         Object[][] obj = {
                 { 7, 12, -5 },
                 {20, 1, 19},
-                { 9, 0, 0 },
+                { 9, 0, 9 },
                 { -4, -64, 60 },
                 {Integer.MAX_VALUE, -1, 2_147_483_648L},
-                {Long.MIN_VALUE, -Long.MAX_VALUE, 0},
+                {Long.MIN_VALUE, -Long.MAX_VALUE, -1L},
         };
         return obj;
     }
@@ -25,7 +26,7 @@ public class CalculatorSubtractTest extends BaseCalculatorOperTest{
         Object[][] obj = {
                 { 7., 12., -5. },
                 {20., 1., 19.},
-                { 9., 0., 0. },
+                { 9., 0., 9. },
                 { -4.12, -2., -2.12 },
                 {Integer.MAX_VALUE, -1., 2_147_483_648.}
         };
@@ -49,7 +50,8 @@ public class CalculatorSubtractTest extends BaseCalculatorOperTest{
     @Test(dataProvider = "dataForSubtractDouble")
     public void testSubtractDouble(double x, double y, double expected) {
         double actual = calculator.sub(x,y);
-        assertThat(actual).isEqualTo(expected);
+        assertThat(actual).isCloseTo(expected,
+                Offset.offset(this.DOUBLE_OFFSET));
     }
 
     @Test(dataProvider = "dataForSubtractDouble")
@@ -57,7 +59,8 @@ public class CalculatorSubtractTest extends BaseCalculatorOperTest{
             (double x, double y, double expected) {
         double oneWay = calculator.sub(x,y);
         double otherWay = calculator.sub(y,x);
-        assertThat(oneWay).isEqualTo(-otherWay);
+        assertThat(oneWay).isCloseTo(-otherWay,
+                Offset.offset(this.DOUBLE_OFFSET));
     }
 
 }

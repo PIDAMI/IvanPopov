@@ -1,5 +1,6 @@
+package com.epam.tc.hw1;
+
 import org.assertj.core.data.Offset;
-import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -23,18 +24,17 @@ public class CalculatorSumTest extends BaseCalculatorOperTest{
         return new Object[][]{
                 { 7, 12, 19 },
                 { 0, 9, 9 },
-                {1.3, 2.2, 3.5},
                 { -4, -66, -70 },
                 {-390, 125, -265},
                 {Integer.MAX_VALUE, 1, 2_147_483_648L},
-                {Long.MAX_VALUE, Long.MIN_VALUE, 0},
+                {Long.MAX_VALUE, Long.MIN_VALUE, -1L}
         };
     }
 
     @Test(dataProvider = "dataForSumLong")
     public void testSumLong(long x, long y, long expected){
         long actual = calculator.sum(x,y);
-        Assert.assertEquals(actual,expected);
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test(dataProvider = "dataForSumLong")
