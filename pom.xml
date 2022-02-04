@@ -47,6 +47,11 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.0.0-M5</version>
+                    <configuration>
+                        <suiteXmlFiles>
+                            <suiteXmlFile>${testng.configs.path}/${suite.xml.name}</suiteXmlFile>
+                        </suiteXmlFiles>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -55,8 +60,11 @@
     <profiles>
         <profile>
             <id>CalculatorBasicOperSuite</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
             <properties>
-                <testng.suite.file>${testng.configs.path}/CalculatorBasicOperSuite.xml</testng.suite.file>
+                <suite.xml.name>CalculatorBasicOperSuite.xml</suite.xml.name>
             </properties>
         </profile>
         <profile>
@@ -65,13 +73,16 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <testng.suite.file>${testng.configs.path}/CalculatorSumSubSuite.xml</testng.suite.file>
+                <suite.xml.name>CalculatorSumSubSuite.xml</suite.xml.name>
             </properties>
         </profile>
         <profile>
             <id>CalculatorMultDivSuite</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
             <properties>
-                <testng.suite.file>${testng.configs.path}/CalculatorMultDivSuite.xml</testng.suite.file>
+                <suite.xml.name>CalculatorMultDivSuite.xml</suite.xml.name>
             </properties>
         </profile>
     </profiles>
