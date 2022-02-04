@@ -1,15 +1,16 @@
 package com.epam.tc.hw1;
 
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.assertj.core.data.Offset;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-public class CalculatorDivTest extends BaseCalculatorOperTest{
+public class CalculatorDivTest extends BaseCalculatorOperTest {
 
     @DataProvider(name = "dataForDivLong")
-    public Object[][] getDataForDivLong(){
+    public Object[][] getDataForDivLong() {
         return new Object[][]{
                 { 7, 12, 0 },
                 {20, 1, 20},
@@ -19,7 +20,7 @@ public class CalculatorDivTest extends BaseCalculatorOperTest{
     }
 
     @DataProvider(name = "dataForDivDouble")
-    public Object[][] getDataForDivDouble(){
+    public Object[][] getDataForDivDouble() {
         return new Object[][]{
                 { 7., -13., -0.5384615384615385},
                 { -7., -13., 0.5384615384615385},
@@ -30,7 +31,7 @@ public class CalculatorDivTest extends BaseCalculatorOperTest{
     }
 
     @DataProvider(name = "dataForZeroDivLong")
-    public Object[][] getDataForZeroDivLong(){
+    public Object[][] getDataForZeroDivLong() {
         return new Object[][]{
                 { 3312 },
                 { 0 },
@@ -40,21 +41,21 @@ public class CalculatorDivTest extends BaseCalculatorOperTest{
 
     @Test(dataProvider = "dataForDivLong")
     public void testDivLong(long x, long y, long expected) {
-        long actual = calculator.div(x,y);
+        long actual = calculator.div(x, y);
         assertThat(actual).isEqualTo(expected);
     }
 
     @Test(dataProvider = "dataForDivDouble")
     public void testDivDouble(double x, double y, double expected) {
-        double actual = calculator.div(x,y);
+        double actual = calculator.div(x, y);
         assertThat(actual).isCloseTo(expected,
-                Offset.offset(this.DOUBLE_OFFSET));
+                Offset.offset(this.doubleOffset));
     }
 
     @Test(dataProvider = "dataForZeroDivLong",
             expectedExceptions = {RuntimeException.class})
     public void testZeroDivLong(long x) {
-        long actual = calculator.div(x,0L);
+        calculator.div(x, 0L);
     }
 
 

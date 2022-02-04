@@ -1,15 +1,16 @@
 package com.epam.tc.hw1;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.assertj.core.data.Offset;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
 
-public class CalculatorMultTest extends BaseCalculatorOperTest{
+public class CalculatorMultTest extends BaseCalculatorOperTest {
 
     @DataProvider(name = "dataForMultLong")
-    public Object[][] getDataForMultLong(){
+    public Object[][] getDataForMultLong() {
         return new Object[][]{
                 { 7, 12, 84 },
                 {20, 1, 20},
@@ -20,7 +21,7 @@ public class CalculatorMultTest extends BaseCalculatorOperTest{
     }
 
     @DataProvider(name = "dataForMultDouble")
-    public Object[][] getDataForMultDouble(){
+    public Object[][] getDataForMultDouble() {
         return new Object[][]{
                 { 0., 9., 0. },
                 {1., 1_000_000., 1_000_000.},
@@ -32,33 +33,33 @@ public class CalculatorMultTest extends BaseCalculatorOperTest{
 
     @Test(dataProvider = "dataForMultLong")
     public void testMultLong(long x, long y, long expected) {
-        long actual = calculator.mult(x,y);
+        long actual = calculator.mult(x, y);
         assertThat(actual).isEqualTo(expected);
     }
 
     @Test(dataProvider = "dataForMultLong")
     public void testMultCommutativityLong(long x,
                                           long y, long expected) {
-        long oneWay = calculator.sum(x,y);
-        long otherWay = calculator.sum(y,x);
+        long oneWay = calculator.sum(x, y);
+        long otherWay = calculator.sum(y, x);
         assertThat(oneWay).isEqualTo(otherWay);
     }
 
 
     @Test(dataProvider = "dataForMultDouble")
     public void testMultDouble(double x, double y, double expected) {
-        double actual = calculator.mult(x,y);
+        double actual = calculator.mult(x, y);
         assertThat(actual).isCloseTo(expected,
-                Offset.offset(this.DOUBLE_OFFSET));
+                Offset.offset(this.doubleOffset));
     }
 
     @Test(dataProvider = "dataForMultDouble")
     public void testMultCommutativityDouble(double x,
                                             double y, double expected) {
-        double oneWay = calculator.sum(x,y);
-        double otherWay = calculator.sum(y,x);
+        double oneWay = calculator.sum(x, y);
+        double otherWay = calculator.sum(y, x);
         assertThat(oneWay).isCloseTo(otherWay,
-                Offset.offset(this.DOUBLE_OFFSET));
+                Offset.offset(this.doubleOffset));
     }
 
 }

@@ -4,11 +4,11 @@ import com.epam.tat.module4.Calculator;
 import org.testng.annotations.BeforeMethod;
 
 public class BaseCalculatorOperTest {
-    public Calculator calculator;
-    public final double DOUBLE_OFFSET = 1e-5;
+    protected Calculator calculator;
+    public final double doubleOffset = 1e-5;
 
     @BeforeMethod
-    public void setUp(){
+    public void setUp() {
         calculator = new Calculator();
     }
 
