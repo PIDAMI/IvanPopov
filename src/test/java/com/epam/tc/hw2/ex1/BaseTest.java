@@ -7,13 +7,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.Duration;
 import java.util.Properties;
-import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 
@@ -24,7 +21,7 @@ public class BaseTest {
     // if we want to change site, will have to change locators as well
     private static final String SITE_URL = "https://jdi-testing.github.io/jdi-light/index.html";
     protected WebDriverWait wait;
-    protected final User loginData = loadUserFromProperties();
+    protected final User user = loadUserFromProperties();
 
     @BeforeSuite
     public void beforeSuite() {
@@ -37,7 +34,7 @@ public class BaseTest {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        driver.get(SITE_URL);
+        gotoSite(SITE_URL);
     }
 
     @AfterTest
@@ -45,6 +42,11 @@ public class BaseTest {
         if (driver != null) {
             driver.quit();
         }
+    }
+
+    // 1. Open test site by URL
+    public void gotoSite(String url) {
+        driver.get(url);
     }
 
     public User loadUserFromProperties() {
@@ -56,11 +58,9 @@ public class BaseTest {
             prop.load(inputStream);
             String username = prop.getProperty("username");
             String password = prop.getProperty("password");
-            if (username == null || password == null) {
-                throw new InvalidArgumentException("Cant load login data from prop file - username or pass is null");
-            }
+            String displayedName = prop.getProperty("displayedName");
 
-            return new User(username, password);
+            return new User(username, password, displayedName);
 
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
