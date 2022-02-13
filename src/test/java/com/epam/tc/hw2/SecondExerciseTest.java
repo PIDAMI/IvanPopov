@@ -2,12 +2,15 @@ package com.epam.tc.hw2;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Test;
 
 public class SecondExerciseTest extends BaseTest {
+
+    private final String colorOption = "Yellow";
 
     @Test
     public void secondExerciseTest() {
@@ -16,6 +19,9 @@ public class SecondExerciseTest extends BaseTest {
         login(user);
         checkUserIsLoggined(user);
         gotoDifferentElementsPage();
+        selectCheckboxes();
+        selectRadio();
+        selectColor(colorOption);
     }
 
     public void gotoDifferentElementsPage() {
@@ -32,10 +38,37 @@ public class SecondExerciseTest extends BaseTest {
         assertThat(driver.getCurrentUrl()).isNotEqualTo(indexPageURL);
     }
 
-    public void qwe() {
-        WebElement waterCheckbox = driver.findElement(By.xpath(
-            "//input[@type='checkbox' text()='Water']")
+    public void selectCheckboxes() {
+        List<WebElement> checkboxes = driver.findElements(By.xpath(
+            "//label[type='label-checkbox']/*")
         );
-        System.out.println(waterCheckbox.);
+        List<String> expectedCheckboxText = List.of("Water", "Wind");
+        checkboxes.stream()
+                  .filter(el -> expectedCheckboxText.contains(el.getText()))
+                  .forEach(el -> wait.until(ExpectedConditions.elementToBeClickable(el)).click());
+
     }
+
+    public void selectRadio() {
+        List<WebElement> radios = driver.findElements(By.xpath(
+            "//label[type='label-radio']/*")
+        );
+        String expectedRadioName = "Selen";
+        radios.stream()
+              .filter(el -> expectedRadioName.equals(el.getText()))
+              .forEach(el -> wait.until(ExpectedConditions.elementToBeClickable(el)).click());
+    }
+
+    // https://developer.mozilla.org/ru/docs/Web/HTML/Element/select
+    // selected option is marked w/ 'selected' tag
+    public void selectColor(String colorOption) {
+        WebElement form = driver.findElement(By.xpath("//div[@class='colors']/*"));
+        form = wait.until(ExpectedConditions.elementToBeClickable(form));
+        form.click();
+        List<WebElement> options = driver.findElements(By.xpath("//div[class='colors']//option"));
+        options.stream()
+                  .filter(el -> colorOption.equals(el.getText()))
+                  .forEach(el -> wait.until(ExpectedConditions.elementToBeClickable(el)).click());
+    }
+
 }
