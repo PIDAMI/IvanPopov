@@ -1,8 +1,9 @@
-package com.epam.tc.hw2;
+package com.epam.tc.hw2.ex1;
 
 import static java.util.Map.entry;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.epam.tc.hw2.BaseTest;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
