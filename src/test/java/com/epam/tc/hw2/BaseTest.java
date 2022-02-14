@@ -15,15 +15,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 
 public class BaseTest {
     protected WebDriver driver;
     private static final long TIMEOUT_SECONDS = 10;
-    // can hardcode url - css locators are specific to particular site anyway
-    // if we want to change site, will have to change locators as well
     protected final String indexPageURL = "https://jdi-testing.github.io/jdi-light/index.html";
     protected WebDriverWait wait;
     protected final User user = loadUserFromProperties();
@@ -35,7 +35,7 @@ public class BaseTest {
     }
 
 
-    @BeforeTest
+    @BeforeMethod
     public void setUp() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -43,7 +43,7 @@ public class BaseTest {
     }
 
     // 12. Close browser
-    @AfterTest
+    @AfterMethod
     public void tearDown() {
         if (driver != null) {
             driver.quit();
@@ -53,6 +53,10 @@ public class BaseTest {
 
     // 1. Open test site by URL
     public void gotoSite() {
+        if (driver == null) {
+            System.out.println("driver is null :(");
+            driver = new ChromeDriver();
+        }
         driver.get(indexPageURL);
     }
 

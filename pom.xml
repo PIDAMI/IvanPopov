@@ -66,30 +66,12 @@
 
     <profiles>
         <profile>
-            <id>CalculatorBasicOperSuite</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <suite.xml.name>CalculatorBasicOperSuite.xml</suite.xml.name>
-            </properties>
-        </profile>
-        <profile>
-            <id>CalculatorSumSubSuite</id>
+            <id>hw2</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <suite.xml.name>CalculatorSumSubSuite.xml</suite.xml.name>
-            </properties>
-        </profile>
-        <profile>
-            <id>CalculatorMultDivSuite</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <suite.xml.name>CalculatorMultDivSuite.xml</suite.xml.name>
+                <suite.xml.name>hw2-suite.xml</suite.xml.name>
             </properties>
         </profile>
     </profiles>

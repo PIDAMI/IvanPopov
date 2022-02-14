@@ -14,12 +14,6 @@ import org.testng.annotations.Test;
 
 public class FirstExerciseTest extends BaseTest {
 
-    // both are same for all images in bottom part
-    private final String imagesCssLocators = "div.row.clerafix.benefits > *";
-    private final String textAfterImagesXpath = "./span[@class='benefit-txt']";
-
-    private final int numImages = 4;
-
     private final Map<String, String> imageCssLocatorToTextAfterImage = Map.ofEntries(
         entry(".icons-benefit.icon-practise",
             "To include good practices\nand ideas from successful\nEPAM project"),
@@ -36,9 +30,7 @@ public class FirstExerciseTest extends BaseTest {
         .of("HOME", "CONTACT FORM", "SERVICE", "METALS & COLORS")
         .sorted()
         .collect(Collectors.toList());
-    private final int expectedNumImages = 4;
-    private final List<String> framesID =
-        List.of("frame", "jdi-frame-site", "first_frame", "second_frame");
+
     private final String frameButtonValue = "Frame Button";
     private final List<String> expectedLeftSectionItemsText = Stream
         .of("Home", "Contact form", "Service", "Metals & Colors", "Elements packs")
@@ -77,9 +69,7 @@ public class FirstExerciseTest extends BaseTest {
             .collect(Collectors.toList());
 
         assertThat(headerButtonsActualText).isEqualTo(expectedHeaderButtonsText);
-        for (WebElement button : headerNavigationButtons) {
-            assertThat(button.isDisplayed()).isEqualTo(true);
-        }
+        headerNavigationButtons.forEach(el -> assertThat(el.isDisplayed()).isEqualTo(true));
     }
 
 
@@ -91,6 +81,8 @@ public class FirstExerciseTest extends BaseTest {
     public void checkImagesDisplayedAndHaveTextBelow(
         Map<String, String> imageCssLocatorToTextAfterImage) {
 
+        // both are same for all images in bottom part
+        String imagesCssLocators = "div.row.clerafix.benefits > *";
         List<WebElement> images = driver.findElements(By.cssSelector(imagesCssLocators));
         assertThat(images.size()).isEqualTo(imageCssLocatorToTextAfterImage.size());
 
@@ -153,6 +145,7 @@ public class FirstExerciseTest extends BaseTest {
 
     public WebElement getTextNodeFromImageNode(WebElement image) {
         WebElement parent = image.findElement(By.xpath("./../.."));
+        String textAfterImagesXpath = "./span[@class='benefit-txt']";
         return parent.findElement(By.xpath(textAfterImagesXpath));
     }
 
