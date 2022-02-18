@@ -1,4 +1,4 @@
-package com.epam.tc.hw2.ex1.entities;
+package com.epam.tc.hw2.entities;
 
 public class User {
 

@@ -2,13 +2,9 @@ package com.epam.tc.hw2;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.epam.tc.hw2.ex1.entities.User;
+import com.epam.tc.hw2.entities.User;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.time.Duration;
-import java.util.Properties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,18 +12,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
 
 public class BaseTest {
     protected WebDriver driver;
     private static final long TIMEOUT_SECONDS = 10;
-    protected final String indexPageURL = "https://jdi-testing.github.io/jdi-light/index.html";
     protected WebDriverWait wait;
-    protected final User user = loadUserFromProperties();
-    protected final String expectedBrowserTitle = "Home Page";
+    protected BaseData baseData;
 
     @BeforeSuite
     public void beforeSuite() {
@@ -52,12 +44,8 @@ public class BaseTest {
 
 
     // 1. Open test site by URL
-    public void gotoSite() {
-        if (driver == null) {
-            System.out.println("driver is null :(");
-            driver = new ChromeDriver();
-        }
-        driver.get(indexPageURL);
+    public void gotoSite(String pageUrl) {
+        driver.get(pageUrl);
     }
 
     // 2. Assert Browser title
@@ -87,28 +75,7 @@ public class BaseTest {
     // 4. Assert Username is loggined;
     public void checkUserIsLoggined(User user) {
         WebElement username = driver.findElement(By.cssSelector("span#user-name"));
-        assertThat(username.isDisplayed()).isEqualTo(true);
-        assertThat(username.getText()).isEqualTo(user.getDisplayedName());
-    }
-
-    public User loadUserFromProperties() {
-        Properties prop = new Properties();
-        try (InputStream inputStream = this
-            .getClass()
-            .getResourceAsStream("/loginData.properties")) {
-
-            prop.load(inputStream);
-            String username = prop.getProperty("username");
-            String password = prop.getProperty("password");
-            String displayedName = prop.getProperty("displayedName");
-
-            return new User(username, password, displayedName);
-
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        assertThat(username.isDisplayed()).isTrue();
     }
 
 }

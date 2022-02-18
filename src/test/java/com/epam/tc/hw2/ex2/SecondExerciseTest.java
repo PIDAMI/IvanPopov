@@ -4,6 +4,7 @@ import static java.util.Map.entry;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.epam.tc.hw2.BaseTest;
+import com.epam.tc.hw2.entities.User;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,39 +16,28 @@ import org.testng.annotations.Test;
 
 public class SecondExerciseTest extends BaseTest {
 
-
     // path not to input node but to its parent which has text
-    private final String checkboxElementsXpath = "//label[@class='label-checkbox']";
-    private final String checkboxRadioXpath = "//label[@class='label-radio']";
-    private final String colorXpath = "//div[@class='colors']/*";
+    private static final String CHECKBOX_ELEMENTS_XPATH = "//label[@class='label-checkbox']";
+    private static final String CHECKBOX_RADIO_XPATH = "//label[@class='label-radio']";
+    private static final String COLOR_XPATH = "//div[@class='colors']/*";
 
-
-    private final Map<String, String> checkboxElementsTextToLogFormat = Map.ofEntries(
-        entry("Water", "Water: condition changed to true"),
-        entry("Wind", "Wind: condition changed to true")
-    );
-
-    private final Map<String, String> checkboxRadioTextToLogFormat = Map.ofEntries(
-        entry("Selen", "Selen")
-    );
-
-    private final Map<String, String> colorTextToLogFormat = Map.ofEntries(
-        entry("Yellow", "Colors: value changed to Yellow")
-    );
-
-    @Test
-    public void secondExerciseTest() {
-        gotoSite();
+    @Test(dataProvider = "second exercise data",
+          dataProviderClass = SecondExerciseData.class)
+    public void secondExerciseTest(String url, String expectedBrowserTitle,
+                                   User user, Map<String, String> checkboxElementsTextToLogFormat,
+                                   Map<String, String> checkboxRadioTextToLogFormat,
+                                   Map<String, String> colorTextToLogFormat) {
+        gotoSite(url);
         checkPageTitle(expectedBrowserTitle);
         login(user);
         checkUserIsLoggined(user);
         gotoDifferentElementsPage();
-        selectCheckboxByTextAndAssertItsChecked(checkboxElementsXpath, checkboxElementsTextToLogFormat);
-        selectCheckboxByTextAndAssertItsChecked(checkboxRadioXpath, checkboxRadioTextToLogFormat);
-        selectColor(colorXpath, colorTextToLogFormat);
-        checkLogIsShown(checkboxElementsXpath, checkboxElementsTextToLogFormat);
-        checkLogIsShown(checkboxRadioXpath, checkboxRadioTextToLogFormat);
-        checkLogIsShown(colorXpath, colorTextToLogFormat);
+        selectCheckboxByTextAndAssertItsChecked(CHECKBOX_ELEMENTS_XPATH, checkboxElementsTextToLogFormat);
+        selectCheckboxByTextAndAssertItsChecked(CHECKBOX_RADIO_XPATH, checkboxRadioTextToLogFormat);
+        selectColor(colorTextToLogFormat);
+        checkLogIsShown(CHECKBOX_ELEMENTS_XPATH, checkboxElementsTextToLogFormat);
+        checkLogIsShown(CHECKBOX_RADIO_XPATH, checkboxRadioTextToLogFormat);
+        checkLogIsShown(COLOR_XPATH, colorTextToLogFormat);
     }
 
 
@@ -63,15 +53,15 @@ public class SecondExerciseTest extends BaseTest {
         WebElement differentElementsButton = driver.findElement(By.xpath(differentElementsButtonLocator));
         wait.until(ExpectedConditions.elementToBeClickable(differentElementsButton));
         differentElementsButton.click();
-        assertThat(driver.getCurrentUrl()).isNotEqualTo(indexPageURL);
     }
+
 
 
     // 6. Select checkboxes OR
     // 7. Select radio (both done by this method w/ different arguments);
     // somehow filtering by text in xpath doesn't work
     // so all children are filtered manually
-    public void selectCheckboxByTextAndAssertItsChecked(String checkboxesXpath,
+    private void selectCheckboxByTextAndAssertItsChecked(String checkboxesXpath,
                                                         Map<String, String> checkboxTextToLogFormat) {
         List<WebElement> checkboxes = driver.findElements(By.xpath(checkboxesXpath));
         checkboxes.stream()
@@ -85,8 +75,8 @@ public class SecondExerciseTest extends BaseTest {
 
 
     // 8. Select in dropdown;
-    public void selectColor(String colorXpath, Map<String, String> selectedOptionTextToLogFormat) {
-        WebElement form = driver.findElement(By.xpath(colorXpath));
+    public void selectColor(Map<String, String> selectedOptionTextToLogFormat) {
+        WebElement form = driver.findElement(By.xpath(COLOR_XPATH));
         form = wait.until(ExpectedConditions.elementToBeClickable(form));
         form.click();
 
@@ -115,7 +105,7 @@ public class SecondExerciseTest extends BaseTest {
                       List<WebElement> logRows = driver.findElements(By.xpath(
                           String.format("//*[contains(text(),'%s')]", logRowFormat))
                       );
-                      assertThat(logRows.size()).isNotEqualTo(0);
+                      assertThat(logRows.size()).isNotZero();
                   });
     }
 

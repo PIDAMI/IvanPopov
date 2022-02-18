@@ -1,13 +1,12 @@
 package com.epam.tc.hw2.ex1;
 
-import static java.util.Map.entry;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.epam.tc.hw2.BaseTest;
+import com.epam.tc.hw2.entities.User;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,36 +14,18 @@ import org.testng.annotations.Test;
 
 public class FirstExerciseTest extends BaseTest {
 
-    private final Map<String, String> imageCssLocatorToTextAfterImage = Map.ofEntries(
-        entry(".icons-benefit.icon-practise",
-            "To include good practices\nand ideas from successful\nEPAM project"),
-        entry(".icons-benefit.icon-custom",
-            "To be flexible and\ncustomizable"),
-        entry(".icons-benefit.icon-multi",
-            "To be multiplatform"),
-        entry(".icons-benefit.icon-base",
-            "Already have good base\n(about 20 internal and"
-            + "\nsome external projects),\nwish to get more…")
-        );
+    public static final String IMAGES_CSS_LOCATORS =
+        "div.row.clerafix.benefits > div.col-sm-3 > div.benefit > div.benefit-icon > span.icons-benefit";
+    public static final String TEXT_AFTER_IMAGES_CSS_LOCATORS =
+        "div.row.clerafix.benefits > div.col-sm-3 > div.benefit > span.benefit-txt";
 
-    private final List<String> expectedHeaderButtonsText = Stream
-        .of("HOME", "CONTACT FORM", "SERVICE", "METALS & COLORS")
-        .sorted()
-        .collect(Collectors.toList());
-
-    private final String frameButtonValue = "Frame Button";
-    private final List<String> expectedLeftSectionItemsText = Stream
-        .of("Home", "Contact form", "Service", "Metals & Colors", "Elements packs")
-        .sorted()
-        .collect(Collectors.toList());
-
-
-
-
-
-    @Test
-    public void firstExerciseTest() {
-        gotoSite();
+    @Test(dataProvider = "first exercise data", dataProviderClass = FirstExerciseData.class)
+    public void firstExerciseTest(final String url, final String expectedBrowserTitle, User user,
+                                  Map<String, String> imageCssLocatorToTextAfterImage,
+                                  List<String> expectedHeaderButtonsText,
+                                  List<String> expectedLeftSectionItemsText,
+                                  String frameButtonValue) {
+        gotoSite(url);
         checkPageTitle(expectedBrowserTitle);
         login(user);
         checkUserIsLoggined(user);
@@ -54,13 +35,11 @@ public class FirstExerciseTest extends BaseTest {
         checkLeftSectionHasItemsWithProperText(expectedLeftSectionItemsText);
     }
 
-
-
     // 5. Assert that there are 4 items on the header section
     // are displayed and they have proper texts;
     public void checkAllHeadersItemsDisplayed(List<String> expectedHeaderButtonsText) {
         List<WebElement> headerNavigationButtons = driver.findElements(
-            By.cssSelector(".uui-navigation.nav.navbar-nav > *")
+            By.cssSelector("nav > ul.uui-navigation.nav.navbar-nav.m-l8 > li")
         );
         assertThat(headerNavigationButtons.size()).isEqualTo(expectedHeaderButtonsText.size());
         List<String> headerButtonsActualText = headerNavigationButtons
@@ -70,10 +49,8 @@ public class FirstExerciseTest extends BaseTest {
             .collect(Collectors.toList());
 
         assertThat(headerButtonsActualText).isEqualTo(expectedHeaderButtonsText);
-        headerNavigationButtons.forEach(el -> assertThat(el.isDisplayed()).isEqualTo(true));
+        headerNavigationButtons.forEach(el -> assertThat(el.isDisplayed()).isTrue());
     }
-
-
 
     // 6. Assert that there are 4 images on the Index Page
     // and they are displayed;
@@ -81,22 +58,20 @@ public class FirstExerciseTest extends BaseTest {
     // under icons and they have proper text;
     public void checkImagesDisplayedAndHaveTextBelow(
         Map<String, String> imageCssLocatorToTextAfterImage) {
-
-        // both are same for all images in bottom part
-        String imagesCssLocators = "div.row.clerafix.benefits > *";
-        List<WebElement> images = driver.findElements(By.cssSelector(imagesCssLocators));
+        // locators are same for all images in bottom part
+        List<WebElement> images = driver.findElements(By.cssSelector(IMAGES_CSS_LOCATORS));
+        List<WebElement> textAfterImages = driver.findElements(By.cssSelector(TEXT_AFTER_IMAGES_CSS_LOCATORS));
         assertThat(images.size()).isEqualTo(imageCssLocatorToTextAfterImage.size());
+        assertThat(images.size()).isEqualTo(textAfterImages.size());
 
-        for (String imageClassName : imageCssLocatorToTextAfterImage.keySet()) {
-            WebElement image = driver.findElement(By.cssSelector(imageClassName));
-            assertThat(isImageDisplayedAfterWait(image)).isEqualTo(true);
-            WebElement textElement = getTextNodeFromImageNode(image);
-            assertThat(textElement.getText()).isEqualTo(
-                imageCssLocatorToTextAfterImage.get(imageClassName)
-            );
+        for (int i = 0; i < images.size(); i++) {
+            String imageClassName = images.get(i).getAttribute("class");
+            String actualText = textAfterImages.get(i).getText();
+            String expectedText = imageCssLocatorToTextAfterImage.get(imageClassName);
+            assertThat(actualText).isEqualTo(expectedText);
         }
-    }
 
+    }
 
     // 8. Assert that there is the iframe with “Frame Button” exist;
     // 9. Switch to the iframe and check that there is “Frame Button” in the iframe;
@@ -118,7 +93,7 @@ public class FirstExerciseTest extends BaseTest {
                 break;
             }
         }
-        assertThat(frameWithButtonExists).isEqualTo(true);
+        assertThat(frameWithButtonExists).isTrue();
     }
 
     // 11. Assert that there are 5 items in the Left Section
@@ -142,16 +117,6 @@ public class FirstExerciseTest extends BaseTest {
     // to switch from frame to original window
     public void switchToOriginalWindow() {
         driver.switchTo().defaultContent();
-    }
-
-    public WebElement getTextNodeFromImageNode(WebElement image) {
-        WebElement parent = image.findElement(By.xpath("./../.."));
-        String textAfterImagesXpath = "./span[@class='benefit-txt']";
-        return parent.findElement(By.xpath(textAfterImagesXpath));
-    }
-
-    public boolean isImageDisplayedAfterWait(WebElement image) {
-        return wait.until(ExpectedConditions.visibilityOf(image)).isDisplayed();
     }
 
 }
