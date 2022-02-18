@@ -50,7 +50,7 @@ public class FirstExerciseTest extends AbstractBaseTest {
         // 4. Assert Username is loggined
         Optional<String> userName = indexPage.profile()
                                              .getUserNameIfDisplayed();
-        assertThat(userName.isPresent()).isEqualTo(true);
+        assertThat(userName.isPresent()).isTrue();
         assertThat(userName.get()).isEqualTo(expectedUserName);
 
         // 5. Assert that there are 4 items on the header section
@@ -67,7 +67,7 @@ public class FirstExerciseTest extends AbstractBaseTest {
         // on the Index Page and they are displayed
         List<WebElement> imagesDisplayed = indexPage.bottomPart().getImages();
         assertThat(imagesDisplayed.size()).isEqualTo(numImages);
-        imagesDisplayed.forEach(el -> assertThat(el.isDisplayed()).isEqualTo(true));
+        imagesDisplayed.forEach(el -> assertThat(el.isDisplayed()).isTrue());
 
         // 7. Assert that there are 4 texts on
         // the Index Page under icons and they have proper text
@@ -90,7 +90,7 @@ public class FirstExerciseTest extends AbstractBaseTest {
         List<WebElement> leftSectionElements = indexPage.leftSection()
                                                         .getLeftSectionElements();
         assertThat(leftSectionElements.size()).isEqualTo(numLeftSectionItems);
-        leftSectionElements.forEach(el -> assertThat(el.isDisplayed()).isEqualTo(true));
+        leftSectionElements.forEach(el -> assertThat(el.isDisplayed()).isTrue());
         List<String> leftSectionText = leftSectionElements
             .stream()
             .map(WebElement::getText)

@@ -36,6 +36,7 @@ public abstract class AbstractBaseTest {
     @BeforeMethod
     public void setUp() {
         driver = new ChromeDriver();
+        driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
         driver.get(siteUrl);
     }

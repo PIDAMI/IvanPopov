@@ -2,7 +2,6 @@ package com.epam.tc.hw3.page.objects.voids;
 
 import static com.epam.tc.hw3.AbstractBaseTest.TIMEOUT_SECONDS;
 
-import com.epam.tc.hw3.entities.User;
 import com.epam.tc.hw3.page.objects.composite.components.BottomPartComponent;
 import com.epam.tc.hw3.page.objects.composite.components.HeaderComponent;
 import com.epam.tc.hw3.page.objects.composite.components.LeftSectionComponent;
@@ -17,8 +16,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 public class JdiIndexPage {
 
@@ -29,9 +26,17 @@ public class JdiIndexPage {
     private final BottomPartComponent bottomPart;
     private final LeftSectionComponent leftSection;
 
-
     @FindBy(tagName = "iframe")
     private List<WebElement> frames;
+
+    @FindBy(xpath = "//*[@class='uui-navigation nav navbar-nav m-l8']"
+        + "//*[contains(text(),'Service')]")
+    private WebElement serviceButton;
+
+    @FindBy(xpath = "//*[@class='uui-navigation nav navbar-nav m-l8']"
+        + "//*[contains(text(),'Different elements')]")
+    private WebElement differentElementsButton;
+
 
 
     public JdiIndexPage(WebDriver driver) {
@@ -73,7 +78,7 @@ public class JdiIndexPage {
             );
             int numButtons = frameButtons.size();
             if (numButtons > 0) {
-                break;
+                return;
             }
             switchToMainWindow();
         }
@@ -84,5 +89,9 @@ public class JdiIndexPage {
         driver.switchTo().defaultContent();
     }
 
+    public void gotoDifferentElementPage() {
+        serviceButton.click();
+        differentElementsButton.click();
+    }
 
 }
