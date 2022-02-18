@@ -67,12 +67,21 @@
 
     <profiles>
         <profile>
-            <id>hw2</id>
+            <id>voids</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <suite.xml.name>hw2-suite.xml</suite.xml.name>
+                <suite.xml.name>voids-suite.xml</suite.xml.name>
+            </properties>
+        </profile>
+        <profile>
+            <id>fluents</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <suite.xml.name>fluents-suite.xml</suite.xml.name>
             </properties>
         </profile>
     </profiles>

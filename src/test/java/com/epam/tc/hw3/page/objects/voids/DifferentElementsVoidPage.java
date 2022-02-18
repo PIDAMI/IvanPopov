@@ -1,7 +1,6 @@
 package com.epam.tc.hw3.page.objects.voids;
 
 import static com.epam.tc.hw3.AbstractBaseTest.TIMEOUT_SECONDS;
-import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class DifferentElementsPage {
+public class DifferentElementsVoidPage {
 
     private final WebDriver driver;
     private final WebDriverWait wait;
@@ -44,7 +43,7 @@ public class DifferentElementsPage {
     private List<WebElement> radioCheckboxesLog;
 
 
-    public DifferentElementsPage(WebDriver driver) {
+    public DifferentElementsVoidPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
         PageFactory.initElements(driver, this);
@@ -77,19 +76,21 @@ public class DifferentElementsPage {
             .forEach(el -> wait.until(ExpectedConditions.elementToBeClickable(el)).click());
 
         String checkedOption = new Select(colorForm).getFirstSelectedOption().getText();
-//        assertThat(checkedOption).isEqualTo(color);
         return checkedOption.equals(color);
     }
 
     private List<String> getLogIfDisplayed(List<WebElement> logElements, List<String> checkboxText) {
         List<String> result = new ArrayList<>();
-        checkboxText = List.copyOf(checkboxText);
         for (WebElement logRow : logElements) {
-            if (checkboxText.contains(logRow.getText()) && logRow.isDisplayed()) {
+            if (logMatchesCheckedOptions(checkboxText, logRow.getText()) && logRow.isDisplayed()) {
                 result.add(logRow.getText());
             }
         }
         return result;
+    }
+
+    public boolean logMatchesCheckedOptions(List<String> checkedOptions, String actualLog) {
+        return checkedOptions.stream().anyMatch(actualLog::contains);
     }
 
     public Optional<String> getColorLogIfDisplayed(String color) {

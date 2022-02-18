@@ -9,14 +9,16 @@ import org.openqa.selenium.support.FindBy;
 
 public class LeftSectionComponent extends AbstractBaseComponent {
 
-    @FindBy(css = ".sidebar-menu.left > * > * > span")
+    @FindBy(css = "ul.sidebar-menu.left > li > a > span")
     List<WebElement> leftSectionElements;
 
     public LeftSectionComponent(WebDriver driver) {
+
         super(driver);
     }
 
     public List<WebElement> getLeftSectionElements() {
+
         return leftSectionElements;
     }
 

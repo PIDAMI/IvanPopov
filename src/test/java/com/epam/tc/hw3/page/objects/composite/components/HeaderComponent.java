@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class HeaderComponent extends AbstractBaseComponent {
 
-    @FindBy(css = ".uui-navigation.nav.navbar-nav > *")
+    @FindBy(css = "nav > ul.uui-navigation.nav.navbar-nav.m-l8 > li")
     private List<WebElement> navigationButtons;
 
     public HeaderComponent(WebDriver driver) {

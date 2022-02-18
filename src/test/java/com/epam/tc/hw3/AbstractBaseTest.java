@@ -23,10 +23,8 @@ public abstract class AbstractBaseTest {
     protected WebDriverWait wait;
     protected final User user = loadUserFromProperties();
 
-    private final String siteUrl =
+    private static final String SITE_URL =
         "https://jdi-testing.github.io/jdi-light/index.html";
-    protected final String siteTitle = "Home Page";
-    protected final String expectedUserName = "ROMAN IOVLEV";
 
     @BeforeSuite
     public void beforeSuit() {
@@ -38,7 +36,7 @@ public abstract class AbstractBaseTest {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
-        driver.get(siteUrl);
+        driver.get(SITE_URL);
     }
 
     @AfterMethod

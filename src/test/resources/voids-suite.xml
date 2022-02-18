@@ -1,0 +1,21 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name = "Void Page Objects suite">
+
+  <test name="Void Page Objects">
+    <classes>
+      <class name = "com.epam.tc.hw3.ex1.FirstExerciseTest">
+      <methods>
+        <include name="firstExerciseWithVoidPagesTest" />
+      </methods>
+      </class>
+      <class name = "com.epam.tc.hw3.ex2.SecondExerciseTest">
+      <methods>
+        <include name="secondExerciseWithVoidPagesTest" />
+      </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

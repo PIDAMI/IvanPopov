@@ -3,7 +3,6 @@ package com.epam.tc.hw3.page.objects.composite.components;
 import com.epam.tc.hw3.entities.User;
 import com.epam.tc.hw3.page.objects.composite.AbstractBaseComponent;
 import java.util.Optional;
-import javax.annotation.Nullable;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,11 +29,9 @@ public class ProfileComponent extends AbstractBaseComponent {
     }
 
     public void login(User user) {
-        //        dropToggle = wait.until(ExpectedConditions.elementToBeClickable(dropToggle));
         profileDropToggle.click();
         passwordForm.sendKeys(user.getPassword());
         loginForm.sendKeys(user.getLogin());
-        //        loginButton = wait.until(ExpectedConditions.elementToBeClickable(loginButton));
         loginButton.click();
     }
 

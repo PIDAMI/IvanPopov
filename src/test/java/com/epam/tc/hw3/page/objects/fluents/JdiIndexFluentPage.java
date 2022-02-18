@@ -1,4 +1,4 @@
-package com.epam.tc.hw3.page.objects.voids;
+package com.epam.tc.hw3.page.objects.fluents;
 
 import static com.epam.tc.hw3.AbstractBaseTest.TIMEOUT_SECONDS;
 
@@ -17,7 +17,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class JdiIndexPage {
+public class JdiIndexFluentPage {
 
     private final WebDriver driver;
     private final WebDriverWait wait;
@@ -39,7 +39,7 @@ public class JdiIndexPage {
 
 
 
-    public JdiIndexPage(WebDriver driver) {
+    public JdiIndexFluentPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
         PageFactory.initElements(driver, this);
@@ -70,7 +70,7 @@ public class JdiIndexPage {
     }
 
     // throws NoSuchElementException if such frame doesn't exist
-    public void switchToFrameWithButton(final String buttonValue) {
+    public JdiIndexFluentPage switchToFrameWithButton(final String buttonValue) {
         for (WebElement frame : frames) {
             wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frame));
             List<WebElement> frameButtons = driver.findElements(By.xpath(
@@ -78,20 +78,23 @@ public class JdiIndexPage {
             );
             int numButtons = frameButtons.size();
             if (numButtons > 0) {
-                return;
+                return this;
             }
             switchToMainWindow();
         }
-        throw new NoSuchElementException(String.format("frame with button with value %s not found", buttonValue));
+        throw new NoSuchElementException(String.format(
+            "frame with button with value %s not found", buttonValue)
+        );
     }
 
-    public void switchToMainWindow() {
+    public JdiIndexFluentPage switchToMainWindow() {
         driver.switchTo().defaultContent();
+        return this;
     }
 
-    public void gotoDifferentElementPage() {
+    public DifferentElementsFluentPage gotoDifferentElementPage() {
         serviceButton.click();
         differentElementsButton.click();
+        return new DifferentElementsFluentPage(driver);
     }
-
 }
