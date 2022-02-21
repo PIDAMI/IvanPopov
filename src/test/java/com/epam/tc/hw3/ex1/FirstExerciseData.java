@@ -5,38 +5,45 @@ import com.epam.tc.hw3.entities.User;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.testng.annotations.DataProvider;
 
 public class FirstExerciseData extends BaseData {
+    private User user = loadUserFromProperties();
+    private List<String> expectedTextAfterImages = List.of(
+        "To include good practices\nand ideas from successful\nEPAM project",
+        "To be flexible and\ncustomizable",
+        "To be multiplatform",
+        "Already have good base\n(about 20 internal and"
+            + "\nsome external projects),\nwish to get more…"
+    );
+    private List<String> expectedHeaderButtonsText = Stream
+        .of("HOME", "CONTACT FORM", "SERVICE", "METALS & COLORS")
+        .sorted()
+        .collect(Collectors.toList());
+    private List<String> expectedLeftSectionItemsText = Stream
+        .of("Home", "Contact form", "Service", "Metals & Colors", "Elements packs")
+        .sorted()
+        .collect(Collectors.toList());
 
-    @DataProvider(name = "first exercise data")
-    public static Object[][] provideData() {
-        User user = loadUserFromProperties();
-        List<String> expectedTextAfterImages = List.of(
-            "To include good practices\nand ideas from successful\nEPAM project",
-            "To be flexible and\ncustomizable",
-            "To be multiplatform",
-            "Already have good base\n(about 20 internal and"
-                + "\nsome external projects),\nwish to get more…"
-        );
-        List<String> expectedHeaderButtonsText = Stream
-            .of("HOME", "CONTACT FORM", "SERVICE", "METALS & COLORS")
-            .sorted()
-            .collect(Collectors.toList());
+    private String frameButtonValue = "Frame Button";
 
-        List<String> expectedLeftSectionItemsText = Stream
-            .of("Home", "Contact form", "Service", "Metals & Colors", "Elements packs")
-            .sorted()
-            .collect(Collectors.toList());
-
-        String frameButtonValue = "Frame Button";
-
-        return new Object[][]{
-            {EXPECTED_BROWSER_TITLE, user,
-                expectedTextAfterImages, expectedHeaderButtonsText,
-                expectedLeftSectionItemsText, frameButtonValue}
-        };
+    public User getUser() {
+        return user;
     }
 
+    public List<String> getExpectedTextAfterImages() {
+        return expectedTextAfterImages;
+    }
+
+    public List<String> getExpectedHeaderButtonsText() {
+        return expectedHeaderButtonsText;
+    }
+
+    public List<String> getExpectedLeftSectionItemsText() {
+        return expectedLeftSectionItemsText;
+    }
+
+    public String getFrameButtonValue() {
+        return frameButtonValue;
+    }
 }
 

@@ -25,6 +25,7 @@ public class JdiIndexFluentPage {
     private final HeaderComponent header;
     private final BottomPartComponent bottomPart;
     private final LeftSectionComponent leftSection;
+    private final String indexPageUrl = "https://jdi-testing.github.io/jdi-light/index.html";
 
     @FindBy(tagName = "iframe")
     private List<WebElement> frames;
@@ -47,6 +48,7 @@ public class JdiIndexFluentPage {
         header = new HeaderComponent(driver);
         bottomPart = new BottomPartComponent(driver);
         leftSection = new LeftSectionComponent(driver);
+        driver.get(indexPageUrl);
     }
 
     public ProfileComponent profile() {

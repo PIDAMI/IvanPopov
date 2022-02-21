@@ -14,21 +14,16 @@ import org.testng.annotations.Test;
 
 public class FirstExerciseTest extends AbstractBaseTest {
 
+    @Test()
+    public void firstExerciseWithVoidPagesTest() {
 
-    @Test(dataProvider = "first exercise data",
-          dataProviderClass = FirstExerciseData.class)
-    public void firstExerciseWithVoidPagesTest(final String expectedBrowserTitle,
-                                               User user,
-                                               List<String> expectedTextAfterImages,
-                                               List<String> expectedHeaderButtonsText,
-                                               List<String> expectedLeftSectionItemsText,
-                                               String frameButtonValue) {
-
+        FirstExerciseData data = new FirstExerciseData();
         JdiIndexVoidPage indexPage = new JdiIndexVoidPage(driver);
         // 2. Assert Browser title
-        assertThat(indexPage.getPageTitle()).isEqualTo(expectedBrowserTitle);
+        assertThat(indexPage.getPageTitle()).isEqualTo(data.getExpectedBrowserTitle());
 
         // 3. Perform login
+        User user = data.getUser();
         indexPage.profile().login(user);
 
         // 4. Assert Username is loggined
@@ -43,11 +38,12 @@ public class FirstExerciseTest extends AbstractBaseTest {
 
         List<String> buttonsText = indexPage.header().getNavigationButtonsText();
         buttonsText.sort(String::compareTo);
-        assertThat(buttonsText).isEqualTo(expectedHeaderButtonsText);
+        assertThat(buttonsText).isEqualTo(data.getExpectedHeaderButtonsText());
 
         // 6. Assert that there are 4 images
         // on the Index Page and they are displayed
         List<WebElement> imagesDisplayed = indexPage.bottomPart().getImages();
+        List<String> expectedTextAfterImages = data.getExpectedTextAfterImages();
         assertThat(imagesDisplayed.size()).isEqualTo(expectedTextAfterImages.size());
         imagesDisplayed.forEach(el -> assertThat(el.isDisplayed()).isTrue());
 
@@ -62,7 +58,7 @@ public class FirstExerciseTest extends AbstractBaseTest {
         // there's noway to check if frame w/ button exists but to
         // switch to every frame and check if there's a button in some frame
         // so making sure 8 is true necessarily implies that actions in 9 are already done
-        indexPage.switchToFrameWithButton(frameButtonValue);
+        indexPage.switchToFrameWithButton(data.getFrameButtonValue());
 
         // 10. Switch to original window back
         indexPage.switchToMainWindow();
@@ -70,6 +66,7 @@ public class FirstExerciseTest extends AbstractBaseTest {
         // 11. Assert that there are 5 items in the
         // Left Section are displayed and they have proper text
         List<WebElement> leftSectionElements = indexPage.leftSection().getLeftSectionElements();
+        List<String> expectedLeftSectionItemsText = data.getExpectedLeftSectionItemsText();
         assertThat(leftSectionElements.size()).isEqualTo(expectedLeftSectionItemsText.size());
 
         leftSectionElements.forEach(el -> assertThat(el.isDisplayed()).isTrue());
@@ -81,20 +78,16 @@ public class FirstExerciseTest extends AbstractBaseTest {
         assertThat(leftSectionText).isEqualTo(expectedLeftSectionItemsText);
     }
 
-    @Test(dataProvider = "first exercise data",
-          dataProviderClass = FirstExerciseData.class)
-    public void firstExerciseWithFluentPagesTest(final String expectedBrowserTitle,
-                                               User user,
-                                               List<String> expectedTextAfterImages,
-                                               List<String> expectedHeaderButtonsText,
-                                               List<String> expectedLeftSectionItemsText,
-                                               String frameButtonValue) {
+    @Test()
+    public void firstExerciseWithFluentPagesTest() {
 
+        FirstExerciseData data = new FirstExerciseData();
         JdiIndexFluentPage indexPage = new JdiIndexFluentPage(driver);
         // 2. Assert Browser title
-        assertThat(indexPage.getPageTitle()).isEqualTo(expectedBrowserTitle);
+        assertThat(indexPage.getPageTitle()).isEqualTo(data.getExpectedBrowserTitle());
 
         // 3. Perform login
+        User user = data.getUser();
         indexPage.profile().login(user);
 
         // 4. Assert Username is loggined
@@ -109,11 +102,12 @@ public class FirstExerciseTest extends AbstractBaseTest {
 
         List<String> buttonsText = indexPage.header().getNavigationButtonsText();
         buttonsText.sort(String::compareTo);
-        assertThat(buttonsText).isEqualTo(expectedHeaderButtonsText);
+        assertThat(buttonsText).isEqualTo(data.getExpectedHeaderButtonsText());
 
         // 6. Assert that there are 4 images
         // on the Index Page and they are displayed
         List<WebElement> imagesDisplayed = indexPage.bottomPart().getImages();
+        List<String> expectedTextAfterImages = data.getExpectedTextAfterImages();
         assertThat(imagesDisplayed.size()).isEqualTo(expectedTextAfterImages.size());
         imagesDisplayed.forEach(el -> assertThat(el.isDisplayed()).isTrue());
 
@@ -124,14 +118,17 @@ public class FirstExerciseTest extends AbstractBaseTest {
 
         // 8. Assert that there is the iframe with “Frame Button” exist
         // 9. Switch to the iframe and check that
-        // there is “Frame Button” in the iframe;
-        // 10. Switch to original window back
-        indexPage.switchToFrameWithButton(frameButtonValue).switchToMainWindow();
-
+        // there is “Frame Button” in the iframe
+        // 10. Switch to original window back;
+        // there's noway to check if frame w/ button exists but to
+        // switch to every frame and check if there's a button in some frame
+        // so making sure 8 is true necessarily implies that actions in 9 are already done
+        indexPage.switchToFrameWithButton(data.getFrameButtonValue()).switchToMainWindow();
 
         // 11. Assert that there are 5 items in the
         // Left Section are displayed and they have proper text
         List<WebElement> leftSectionElements = indexPage.leftSection().getLeftSectionElements();
+        List<String> expectedLeftSectionItemsText = data.getExpectedLeftSectionItemsText();
         assertThat(leftSectionElements.size()).isEqualTo(expectedLeftSectionItemsText.size());
 
         leftSectionElements.forEach(el -> assertThat(el.isDisplayed()).isTrue());

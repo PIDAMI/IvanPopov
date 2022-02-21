@@ -14,17 +14,15 @@ import org.testng.annotations.Test;
 
 public class SecondExerciseTest extends AbstractBaseTest {
 
-    @Test(dataProvider = "second exercise data",
-          dataProviderClass = SecondExerciseData.class)
-    public void secondExerciseWithVoidPagesTest(final String expectedBrowserTitle,
-                                                User user, List<String> elementsCheckboxesText,
-                                                String radioCheckboxesText,
-                                                String color) {
+    @Test()
+    public void secondExerciseWithVoidPagesTest() {
+        SecondExerciseData data = new SecondExerciseData();
         JdiIndexVoidPage indexPage = new JdiIndexVoidPage(driver);
         // 2. Assert Browser title
-        assertThat(indexPage.getPageTitle()).isEqualTo(expectedBrowserTitle);
+        assertThat(indexPage.getPageTitle()).isEqualTo(data.getExpectedBrowserTitle());
 
         // 3. Perform login
+        User user = data.getUser();
         indexPage.profile().login(user);
 
         // 4. Assert Username is loggined
@@ -36,16 +34,19 @@ public class SecondExerciseTest extends AbstractBaseTest {
         indexPage.gotoDifferentElementPage();
         DifferentElementsVoidPage differentElementsPage = new DifferentElementsVoidPage(driver);
 
+        List<String> elementsCheckboxesText = data.getElementsCheckboxesText();
         List<Boolean> checkboxesChecked = differentElementsPage
             .selectElementsCheckboxesAndCheckIfSelected(elementsCheckboxesText);
         checkboxesChecked.forEach(checked -> assertThat(checked).isTrue());
 
         // 7. Select radio
+        String radioCheckboxesText = data.getRadioCheckboxesText();
         Boolean radioChecked = differentElementsPage
             .selectRadioCheckboxesAndCheckIfSelected(radioCheckboxesText);
         assertThat(radioChecked).isTrue();
 
         // 8. Select in dropdown
+        String color = data.getColor();
         Boolean colorChecked = differentElementsPage
             .selectColorAndCheckIfSelected(color);
         assertThat(colorChecked).isTrue();
@@ -71,17 +72,15 @@ public class SecondExerciseTest extends AbstractBaseTest {
         assertThat(colorLog.isPresent()).isTrue();
     }
 
-    @Test(dataProvider = "second exercise data",
-          dataProviderClass = SecondExerciseData.class)
-    public void secondExerciseWithFluentPagesTest(final String expectedBrowserTitle,
-                                                User user, List<String> elementsCheckboxesText,
-                                                String radioCheckboxesText,
-                                                String color) {
+    @Test()
+    public void secondExerciseWithFluentPagesTest() {
+        SecondExerciseData data = new SecondExerciseData();
         JdiIndexFluentPage indexPage = new JdiIndexFluentPage(driver);
         // 2. Assert Browser title
-        assertThat(indexPage.getPageTitle()).isEqualTo(expectedBrowserTitle);
+        assertThat(indexPage.getPageTitle()).isEqualTo(data.getExpectedBrowserTitle());
 
         // 3. Perform login
+        User user = data.getUser();
         indexPage.profile().login(user);
 
         // 4. Assert Username is loggined
@@ -91,17 +90,19 @@ public class SecondExerciseTest extends AbstractBaseTest {
 
         // 5. Select checkboxes
         DifferentElementsFluentPage differentElementsPage = indexPage.gotoDifferentElementPage();
-
+        List<String> elementsCheckboxesText = data.getElementsCheckboxesText();
         List<Boolean> checkboxesChecked = differentElementsPage
             .selectElementsCheckboxesAndCheckIfSelected(elementsCheckboxesText);
         checkboxesChecked.forEach(checked -> assertThat(checked).isTrue());
 
         // 7. Select radio
+        String radioCheckboxesText = data.getRadioCheckboxesText();
         Boolean radioChecked = differentElementsPage
             .selectRadioCheckboxesAndCheckIfSelected(radioCheckboxesText);
         assertThat(radioChecked).isTrue();
 
         // 8. Select in dropdown
+        String color = data.getColor();
         Boolean colorChecked = differentElementsPage
             .selectColorAndCheckIfSelected(color);
         assertThat(colorChecked).isTrue();
@@ -126,7 +127,4 @@ public class SecondExerciseTest extends AbstractBaseTest {
         Optional<String> colorLog = differentElementsPage.getColorLogIfDisplayed(color);
         assertThat(colorLog.isPresent()).isTrue();
     }
-
-
-
 }
