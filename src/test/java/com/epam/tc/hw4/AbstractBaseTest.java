@@ -4,6 +4,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import java.time.Duration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -23,7 +24,9 @@ public abstract class AbstractBaseTest {
     @BeforeMethod
     public void setUp() {
         System.setProperty("webdriver.chrome.bin", "/usr/bin/google-chrome-stable");
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--no-sandbox"); // Bypass OS security model
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
     }
