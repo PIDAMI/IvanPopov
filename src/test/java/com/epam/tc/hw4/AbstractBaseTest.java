@@ -22,6 +22,7 @@ public abstract class AbstractBaseTest {
 
     @BeforeMethod
     public void setUp() {
+        System.setProperty("webdriver.chrome.bin", "/usr/bin/google-chrome-stable");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
