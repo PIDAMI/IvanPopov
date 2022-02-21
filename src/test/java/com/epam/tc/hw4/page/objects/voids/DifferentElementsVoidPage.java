@@ -2,6 +2,7 @@ package com.epam.tc.hw4.page.objects.voids;
 
 import static com.epam.tc.hw4.AbstractBaseTest.TIMEOUT_SECONDS;
 
+import io.qameta.allure.Step;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,6 @@ public class DifferentElementsVoidPage {
     @FindBy(xpath = "//*[contains(text(),'Selen')]")
     private List<WebElement> radioCheckboxesLog;
 
-
     public DifferentElementsVoidPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
@@ -61,14 +61,17 @@ public class DifferentElementsVoidPage {
                             .collect(Collectors.toList());
     }
 
+    @Step("Selecting elements checkboxes with values {checkboxesText}")
     public List<Boolean> selectElementsCheckboxesAndCheckIfSelected(List<String> checkboxesText) {
         return selectCheckboxes(elementsCheckboxes, checkboxesText);
     }
 
+    @Step("Selecting radio checkboxes with value {checkboxesText}")
     public Boolean selectRadioCheckboxesAndCheckIfSelected(String checkboxesText) {
         return selectCheckboxes(radioCheckboxes, List.of(checkboxesText)).get(0);
     }
 
+    @Step("Selecting color option with value {color}")
     public Boolean selectColorAndCheckIfSelected(String color) {
         colorForm.click();
         colorOptions.stream()
@@ -93,19 +96,20 @@ public class DifferentElementsVoidPage {
         return checkedOptions.stream().anyMatch(actualLog::contains);
     }
 
+    @Step("Getting color option log with value {value}")
     public Optional<String> getColorLogIfDisplayed(String color) {
         List<String> log = getLogIfDisplayed(List.of(colorLog), List.of(color));
         return log.isEmpty() ? Optional.empty() : Optional.of(log.get(0));
     }
 
+    @Step("Getting elements checkboxes' log with values {checkboxesText}")
     public List<String> getElementsCheckboxLogIfDisplayed(List<String> checkboxesText) {
         return getLogIfDisplayed(elementsCheckboxesLog, checkboxesText);
     }
 
+    @Step("Getting radio checkboxes' log with values {checkboxesText}")
     public Optional<String> getRadioCheckboxLogIfDisplayed(String checkboxesText) {
         List<String> log = getLogIfDisplayed(radioCheckboxesLog, List.of(checkboxesText));
         return log.isEmpty() ? Optional.empty() : Optional.of(log.get(0));
     }
-
-
 }

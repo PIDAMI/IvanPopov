@@ -1,11 +1,12 @@
 package com.epam.tc.hw4;
 
 import com.epam.tc.hw4.entities.User;
+import io.qameta.allure.Step;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class BaseData {
+public abstract class AbstractBaseData {
 
     protected String expectedBrowserTitle = "Home Page";
 
@@ -13,9 +14,10 @@ public class BaseData {
         return expectedBrowserTitle;
     }
 
+    @Step("load user from properties")
     public static User loadUserFromProperties() {
         Properties prop = new Properties();
-        try (InputStream inputStream = BaseData.class
+        try (InputStream inputStream = AbstractBaseData.class
             .getResourceAsStream("/loginData.properties")) {
 
             prop.load(inputStream);

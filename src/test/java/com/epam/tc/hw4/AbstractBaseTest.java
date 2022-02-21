@@ -30,8 +30,6 @@ public abstract class AbstractBaseTest {
     // 12. Close browser
     @AfterMethod
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        driver.quit();
     }
 }

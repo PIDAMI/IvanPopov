@@ -18,16 +18,27 @@
         <webdrivermanager.version>5.0.3</webdrivermanager.version>
         <selenuim-java.version>4.0.0</selenuim-java.version>
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
+        <cucumber.version>7.2.3</cucumber.version>
+        <allure-testng.version>2.17.2</allure-testng.version>
+        <allure-maven.version>2.11.2</allure-maven.version>
     </properties>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>${allure-testng.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>${webdrivermanager.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
@@ -75,16 +86,17 @@
                 <suite.xml.name>voids-suite.xml</suite.xml.name>
             </properties>
         </profile>
-        <profile>
-            <id>fluents</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <suite.xml.name>fluents-suite.xml</suite.xml.name>
-            </properties>
-        </profile>
     </profiles>
 
+    <reporting>
+        <excludeDefaults>true</excludeDefaults>
+        <plugins>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>${allure-maven.version}</version>
+            </plugin>
+        </plugins>
+    </reporting>
 
 </project>

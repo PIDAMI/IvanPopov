@@ -1,6 +1,7 @@
 package com.epam.tc.hw4.page.objects.composite.components;
 
 import com.epam.tc.hw4.page.objects.composite.AbstractBaseComponent;
+import io.qameta.allure.Step;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.openqa.selenium.WebDriver;
@@ -22,10 +23,12 @@ public class BottomPartComponent extends AbstractBaseComponent {
         super(driver);
     }
 
+    @Step("Getting images in bottom part")
     public List<WebElement> getImages() {
         return List.copyOf(images);
     }
 
+    @Step("Getting text after images in bottom part")
     public List<String> getTextAfterImage() {
         return textAfterImages.stream()
                               .map(WebElement::getText)

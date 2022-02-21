@@ -1,12 +1,12 @@
 package com.epam.tc.hw4.ex1;
 
-import com.epam.tc.hw4.BaseData;
+import com.epam.tc.hw4.AbstractBaseData;
 import com.epam.tc.hw4.entities.User;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class FirstExerciseData extends BaseData {
+public class FirstExerciseData extends AbstractBaseData {
     private User user = loadUserFromProperties();
     private List<String> expectedTextAfterImages = List.of(
         "To include good practices\nand ideas from successful\nEPAM project",

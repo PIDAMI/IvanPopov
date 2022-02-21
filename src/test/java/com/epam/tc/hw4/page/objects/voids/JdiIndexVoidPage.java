@@ -6,6 +6,7 @@ import com.epam.tc.hw4.page.objects.composite.components.BottomPartComponent;
 import com.epam.tc.hw4.page.objects.composite.components.HeaderComponent;
 import com.epam.tc.hw4.page.objects.composite.components.LeftSectionComponent;
 import com.epam.tc.hw4.page.objects.composite.components.ProfileComponent;
+import io.qameta.allure.Step;
 import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -37,8 +38,6 @@ public class JdiIndexVoidPage {
     @FindBy(xpath = "//*[@class='uui-navigation nav navbar-nav m-l8']"
         + "//*[contains(text(),'Different elements')]")
     private WebElement differentElementsButton;
-
-
 
     public JdiIndexVoidPage(WebDriver driver) {
         this.driver = driver;
@@ -72,6 +71,7 @@ public class JdiIndexVoidPage {
     }
 
     // throws NoSuchElementException if such frame doesn't exist
+    @Step("Switching to frame with button with value {buttonValue}")
     public void switchToFrameWithButton(final String buttonValue) {
         for (WebElement frame : frames) {
             wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frame));
@@ -87,10 +87,12 @@ public class JdiIndexVoidPage {
         throw new NoSuchElementException(String.format("frame with button with value %s not found", buttonValue));
     }
 
+
     public void switchToMainWindow() {
         driver.switchTo().defaultContent();
     }
 
+    @Step("Go to Different Elements page")
     public void gotoDifferentElementPage() {
         serviceButton.click();
         differentElementsButton.click();
