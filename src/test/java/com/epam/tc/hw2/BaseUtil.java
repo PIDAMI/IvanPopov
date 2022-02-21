@@ -30,7 +30,6 @@ public class BaseUtil {
         assertThat(title).isEqualTo(expectedTitle);
     }
 
-
     // 3. Perform login
     public void login(User user) {
         WebElement dropToggle = driver.findElement(By.className("uui-profile-menu"));

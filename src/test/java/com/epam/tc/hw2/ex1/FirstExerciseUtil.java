@@ -14,11 +14,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class FirstExerciseUtil extends BaseUtil {
 
-
-    public FirstExerciseUtil(WebDriver driver, WebDriverWait wait) {
-        super(driver, wait);
-    }
-
     public static final String IMAGES_CSS_LOCATORS =
         "div.row.clerafix.benefits > div.col-sm-3 > div.benefit > div.benefit-icon > span.icons-benefit";
     public static final String TEXT_AFTER_IMAGES_CSS_LOCATORS =
@@ -27,6 +22,10 @@ public class FirstExerciseUtil extends BaseUtil {
         "nav > ul.uui-navigation.nav.navbar-nav.m-l8 > li";
     private static final String LEFT_SECTION_ELEMENT_CSS_SELECTOR =
         "ul.sidebar-menu.left > li > a > span";
+
+    public FirstExerciseUtil(WebDriver driver, WebDriverWait wait) {
+        super(driver, wait);
+    }
 
     // 5. Assert that there are 4 items on the header section
     // are displayed and they have proper texts;

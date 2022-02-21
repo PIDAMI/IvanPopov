@@ -1,6 +1,5 @@
 package com.epam.tc.hw2.ex2;
 
-import static com.epam.tc.hw2.ex2.SecondExerciseTest.COLOR_XPATH;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.epam.tc.hw2.BaseUtil;
@@ -16,7 +15,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SecondExerciseUtil extends BaseUtil {
 
-
+    // path not to input node but to its parent which has text
+    public static final String CHECKBOX_ELEMENTS_XPATH = "//label[@class='label-checkbox']";
+    public static final String CHECKBOX_RADIO_XPATH = "//label[@class='label-radio']";
+    public static final String COLOR_XPATH = "//div[@class='colors']/*";
 
     public static final String SERVICE_BUTTON_CSS_LOCATOR =
         "//*[@class='uui-navigation nav navbar-nav m-l8']//*[contains(text(),'Service')]";
@@ -38,13 +40,20 @@ public class SecondExerciseUtil extends BaseUtil {
         differentElementsButton.click();
     }
 
+    // 6. Select checkboxes
+    public void selectElementsCheckboxByTextAndAssertItsChecked(Map<String, String> checkboxTextToLogFormat) {
+        selectCheckboxByTextAndAssertItsChecked(CHECKBOX_ELEMENTS_XPATH, checkboxTextToLogFormat);
+    }
 
+    public void selectRadioCheckboxByTextAndAssertItsChecked(Map<String, String> checkboxTextToLogFormat) {
+        selectCheckboxByTextAndAssertItsChecked(CHECKBOX_RADIO_XPATH, checkboxTextToLogFormat);
+    }
 
     // 6. Select checkboxes OR
     // 7. Select radio (both done by this method w/ different arguments);
     // somehow filtering by text in xpath doesn't work
     // so all children are filtered manually
-    public void selectCheckboxByTextAndAssertItsChecked(String checkboxesXpath,
+    private void selectCheckboxByTextAndAssertItsChecked(String checkboxesXpath,
                                                                 Map<String, String> checkboxTextToLogFormat) {
         List<WebElement> checkboxes = driver.findElements(By.xpath(checkboxesXpath));
         checkboxes.stream()
@@ -55,7 +64,6 @@ public class SecondExerciseUtil extends BaseUtil {
                       assertThat(inputForm.isSelected()).isEqualTo(true);
                   });
     }
-
 
     // 8. Select in dropdown;
     public void selectColor(Map<String, String> selectedOptionTextToLogFormat) {
@@ -72,12 +80,23 @@ public class SecondExerciseUtil extends BaseUtil {
         assertThat(checkedOption).isEqualTo(new ArrayList<>(selectedOptionTextToLogFormat.keySet()).get(0));
     }
 
+    public void checkElementsCheckboxLogIsShown(Map<String, String> checkboxTextToLogFormat) {
+        checkLogIsShown(CHECKBOX_ELEMENTS_XPATH, checkboxTextToLogFormat);
+    }
+
+    public void checkRadioCheckboxLogIsShown(Map<String, String> checkboxTextToLogFormat) {
+        checkLogIsShown(CHECKBOX_RADIO_XPATH, checkboxTextToLogFormat);
+    }
+
+    public void checkColorsCheckboxLogIsShown(Map<String, String> checkboxTextToLogFormat) {
+        checkLogIsShown(COLOR_OPTION_XPATH, checkboxTextToLogFormat);
+    }
 
     // 9. Assert that
     // for each checkbox there is an individual log row and value is corresponded to the status of checkbox
     // for radio button there is a log row and value is corresponded to the status of radio button
     // for dropdown there is a log row and value is corresponded to the selected value.;
-    public void checkLogIsShown(String checkboxesXpath,
+    private void checkLogIsShown(String checkboxesXpath,
                                        Map<String, String> checkboxTextToLogFormat) {
         List<WebElement> checkboxes = driver.findElements(By.xpath(checkboxesXpath));
         checkboxes.stream()

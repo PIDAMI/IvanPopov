@@ -7,9 +7,16 @@ import java.util.Properties;
 
 public class BaseData {
 
-    protected static final String INDEX_PAGE_URL = "https://jdi-testing.github.io/jdi-light/index.html";
-    protected static final String EXPECTED_BROWSER_TITLE = "Home Page";
+    protected String indexPageUrl = "https://jdi-testing.github.io/jdi-light/index.html";
+    protected String expectedBrowserTitle = "Home Page";
 
+    public String getIndexPageUrl() {
+        return indexPageUrl;
+    }
+
+    public String getExpectedBrowserTitle() {
+        return expectedBrowserTitle;
+    }
 
     public static User loadUserFromProperties() {
         Properties prop = new Properties();
@@ -27,5 +34,4 @@ public class BaseData {
             throw new RuntimeException(e);
         }
     }
-
 }
