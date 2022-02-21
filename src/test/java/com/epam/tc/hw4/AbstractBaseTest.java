@@ -25,7 +25,8 @@ public abstract class AbstractBaseTest {
     public void setUp() {
         System.setProperty("webdriver.chrome.bin", "/usr/bin/google-chrome-stable");
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox"); // Bypass OS security model
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
