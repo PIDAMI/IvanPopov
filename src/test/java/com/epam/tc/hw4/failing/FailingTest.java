@@ -12,13 +12,13 @@ import org.testng.annotations.Test;
 @Story("Failing version of exercise 1 test")
 public class FailingTest extends AbstractBaseTest {
 
-//    @Test
-//    public void failTest() {
-//
-//        FirstExerciseData data = new FirstExerciseData();
-//        JdiIndexVoidPage indexPage = new JdiIndexVoidPage(driver);
-//        FirstExerciseUtil util = new FirstExerciseUtil(driver, wait, indexPage);
-//        // 2. Assert Browser title
-//        util.checkIfTitleCorrect("");
-//    }
+    @Test
+    public void failTest() {
+
+        FirstExerciseData data = new FirstExerciseData();
+        JdiIndexVoidPage indexPage = new JdiIndexVoidPage(driver);
+        FirstExerciseUtil util = new FirstExerciseUtil(driver, wait, indexPage);
+        // 2. Assert Browser title
+        util.checkIfTitleCorrect("");
+    }
 }
