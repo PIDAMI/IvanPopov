@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.epam.tc</groupId>
-    <artifactId>hw3</artifactId>
+    <artifactId>hw4</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -67,6 +67,8 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${surefire-plugin.version}</version>
                     <configuration>
+<!--                        <source>8</source>-->
+<!--                        <target>8</target>-->
                         <suiteXmlFiles>
                             <suiteXmlFile>${testng.configs.path}/${suite.xml.name}</suiteXmlFile>
                         </suiteXmlFiles>
