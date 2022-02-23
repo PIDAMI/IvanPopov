@@ -3,7 +3,6 @@ package com.epam.tc.hw4.ex2;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.epam.tc.hw4.AbstractBaseUtil;
-import com.epam.tc.hw4.entities.User;
 import com.epam.tc.hw4.page.objects.voids.DifferentElementsVoidPage;
 import com.epam.tc.hw4.page.objects.voids.JdiIndexVoidPage;
 import io.qameta.allure.Step;

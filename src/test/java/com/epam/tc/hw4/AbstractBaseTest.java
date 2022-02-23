@@ -8,7 +8,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
@@ -26,11 +25,7 @@ public abstract class AbstractBaseTest {
 
     @BeforeMethod
     public void setUp(ITestContext context) {
-//        System.setProperty("webdriver.chrome.bin", "/usr/bin/google-chrome-stable");
         ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--no-sandbox");
-//        options.addArguments("--disable-dev-shm-usage");
-//        options.addArguments("--headless");
         driver = new ChromeDriver(options);
         context.setAttribute("driver", driver);
         driver.manage().window().maximize();
