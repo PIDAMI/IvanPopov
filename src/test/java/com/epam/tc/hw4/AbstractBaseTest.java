@@ -25,8 +25,7 @@ public abstract class AbstractBaseTest {
 
     @BeforeMethod
     public void setUp(ITestContext context) {
-        ChromeOptions options = new ChromeOptions();
-        driver = new ChromeDriver(options);
+        driver = new ChromeDriver();
         context.setAttribute("driver", driver);
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));

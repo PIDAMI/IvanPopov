@@ -12,7 +12,9 @@ public class ScreenshotListener implements ITestListener {
     @Override
     public void onTestFailure(ITestResult result) {
         Object driver = result.getTestContext().getAttribute("driver");
-        byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-        AttachmentUtils.attachPngImage("Screenshot on failure", screenshot);
+        if (driver != null) {
+            byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            AttachmentUtils.attachPngImage("Screenshot on failure", screenshot);
+        }
     }
 }
