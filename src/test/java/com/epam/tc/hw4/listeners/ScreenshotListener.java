@@ -15,8 +15,6 @@ public class ScreenshotListener implements ITestListener {
         if (driver != null) {
             byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
             AttachmentUtils.attachPngImage("Screenshot on failure", screenshot);
-        } else {
-            System.out.println("DRIVER NULL");
         }
     }
 }
