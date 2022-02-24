@@ -17,5 +17,4 @@ public abstract class AbstractBaseComponent {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
         PageFactory.initElements(this.driver, this);
     }
-
 }

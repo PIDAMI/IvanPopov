@@ -9,13 +9,10 @@ import org.openqa.selenium.support.FindBy;
 
 public class BottomPartComponent extends AbstractBaseComponent {
 
-
-    @FindBy(css = "div.row.clerafix.benefits > div.col-sm-3 > "
-        + "div.benefit > div.benefit-icon > span.icons-benefit")
+    @FindBy(css = "span.icons-benefit")
     private List<WebElement> images;
 
-    @FindBy(css = "div.row.clerafix.benefits > div.col-sm-3 > "
-        + "div.benefit > span.benefit-txt")
+    @FindBy(css = "span.benefit-txt")
     private List<WebElement> textAfterImages;
 
     public BottomPartComponent(WebDriver driver) {
@@ -23,7 +20,7 @@ public class BottomPartComponent extends AbstractBaseComponent {
     }
 
     public List<WebElement> getImages() {
-        return List.copyOf(images);
+        return images;
     }
 
     public List<String> getTextAfterImage() {

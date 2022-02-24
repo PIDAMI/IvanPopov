@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FirstExerciseData extends BaseData {
+
     private User user = loadUserFromProperties();
     private List<String> expectedTextAfterImages = List.of(
         "To include good practices\nand ideas from successful\nEPAM project",

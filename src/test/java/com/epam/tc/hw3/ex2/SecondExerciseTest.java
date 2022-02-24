@@ -9,7 +9,6 @@ import com.epam.tc.hw3.page.objects.fluents.JdiIndexFluentPage;
 import com.epam.tc.hw3.page.objects.voids.DifferentElementsVoidPage;
 import com.epam.tc.hw3.page.objects.voids.JdiIndexVoidPage;
 import java.util.List;
-import java.util.Optional;
 import org.testng.annotations.Test;
 
 public class SecondExerciseTest extends AbstractBaseTest {
@@ -26,30 +25,23 @@ public class SecondExerciseTest extends AbstractBaseTest {
         indexPage.profile().login(user);
 
         // 4. Assert Username is loggined
-        Optional<String> userName = indexPage.profile().getUserNameIfDisplayed();
-        assertThat(userName.isPresent()).isTrue();
-        assertThat(userName.get()).isEqualTo(user.getDisplayedName());
+        String userName = indexPage.profile().getUserNameIfDisplayed();
+        assertThat(userName).isEqualTo(user.getDisplayedName());
 
         // 5. Select checkboxes
         indexPage.gotoDifferentElementPage();
         DifferentElementsVoidPage differentElementsPage = new DifferentElementsVoidPage(driver);
 
         List<String> elementsCheckboxesText = data.getElementsCheckboxesText();
-        List<Boolean> checkboxesChecked = differentElementsPage
-            .selectElementsCheckboxesAndCheckIfSelected(elementsCheckboxesText);
-        checkboxesChecked.forEach(checked -> assertThat(checked).isTrue());
+        differentElementsPage.selectElementsCheckboxesAndCheckIfSelected(elementsCheckboxesText);
 
         // 7. Select radio
         String radioCheckboxesText = data.getRadioCheckboxesText();
-        Boolean radioChecked = differentElementsPage
-            .selectRadioCheckboxesAndCheckIfSelected(radioCheckboxesText);
-        assertThat(radioChecked).isTrue();
+        differentElementsPage.selectRadioCheckboxesAndCheckIfSelected(radioCheckboxesText);
 
         // 8. Select in dropdown
         String color = data.getColor();
-        Boolean colorChecked = differentElementsPage
-            .selectColorAndCheckIfSelected(color);
-        assertThat(colorChecked).isTrue();
+        differentElementsPage.selectColorAndCheckIfSelected(color);
 
         // 9. Assert that
         // for each checkbox there is an individual log row
@@ -61,15 +53,16 @@ public class SecondExerciseTest extends AbstractBaseTest {
         // 9. Assert that
         // for radio button there is a log row
         // and value is corresponded to the status of radio button
-        Optional<String> radioLog = differentElementsPage
+        List<String> radioLog = differentElementsPage
             .getRadioCheckboxLogIfDisplayed(radioCheckboxesText);
-        assertThat(radioLog.isPresent()).isTrue();
+        assertThat(radioLog.isEmpty()).isFalse();
 
         // 9. Assert that
         // for dropdown there is a log row
         // and value is corresponded to the selected value.
-        Optional<String> colorLog = differentElementsPage.getColorLogIfDisplayed(color);
-        assertThat(colorLog.isPresent()).isTrue();
+        List<String> colorLog = differentElementsPage
+            .getColorLogIfDisplayed(color);
+        assertThat(colorLog.isEmpty()).isFalse();
     }
 
     @Test()
@@ -84,28 +77,21 @@ public class SecondExerciseTest extends AbstractBaseTest {
         indexPage.profile().login(user);
 
         // 4. Assert Username is loggined
-        Optional<String> userName = indexPage.profile().getUserNameIfDisplayed();
-        assertThat(userName.isPresent()).isTrue();
-        assertThat(userName.get()).isEqualTo(user.getDisplayedName());
+        String userName = indexPage.profile().getUserNameIfDisplayed();
+        assertThat(userName).isEqualTo(user.getDisplayedName());
 
         // 5. Select checkboxes
         DifferentElementsFluentPage differentElementsPage = indexPage.gotoDifferentElementPage();
         List<String> elementsCheckboxesText = data.getElementsCheckboxesText();
-        List<Boolean> checkboxesChecked = differentElementsPage
-            .selectElementsCheckboxesAndCheckIfSelected(elementsCheckboxesText);
-        checkboxesChecked.forEach(checked -> assertThat(checked).isTrue());
+        differentElementsPage.selectElementsCheckboxesAndCheckIfSelected(elementsCheckboxesText);
 
         // 7. Select radio
         String radioCheckboxesText = data.getRadioCheckboxesText();
-        Boolean radioChecked = differentElementsPage
-            .selectRadioCheckboxesAndCheckIfSelected(radioCheckboxesText);
-        assertThat(radioChecked).isTrue();
+        differentElementsPage.selectRadioCheckboxesAndCheckIfSelected(radioCheckboxesText);
 
         // 8. Select in dropdown
         String color = data.getColor();
-        Boolean colorChecked = differentElementsPage
-            .selectColorAndCheckIfSelected(color);
-        assertThat(colorChecked).isTrue();
+        differentElementsPage.selectColorAndCheckIfSelected(color);
 
         // 9. Assert that
         // for each checkbox there is an individual log row
@@ -117,14 +103,14 @@ public class SecondExerciseTest extends AbstractBaseTest {
         // 9. Assert that
         // for radio button there is a log row
         // and value is corresponded to the status of radio button
-        Optional<String> radioLog = differentElementsPage
+        List<String> radioLog = differentElementsPage
             .getRadioCheckboxLogIfDisplayed(radioCheckboxesText);
-        assertThat(radioLog.isPresent()).isTrue();
+        assertThat(radioLog.isEmpty()).isFalse();
 
         // 9. Assert that
         // for dropdown there is a log row
         // and value is corresponded to the selected value.
-        Optional<String> colorLog = differentElementsPage.getColorLogIfDisplayed(color);
-        assertThat(colorLog.isPresent()).isTrue();
+        List<String> colorLog = differentElementsPage.getColorLogIfDisplayed(color);
+        assertThat(colorLog.isEmpty()).isFalse();
     }
 }

@@ -38,8 +38,6 @@ public class JdiIndexVoidPage {
         + "//*[contains(text(),'Different elements')]")
     private WebElement differentElementsButton;
 
-
-
     public JdiIndexVoidPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
@@ -95,5 +93,4 @@ public class JdiIndexVoidPage {
         serviceButton.click();
         differentElementsButton.click();
     }
-
 }

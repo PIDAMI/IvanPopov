@@ -16,7 +16,6 @@ public class FirstExerciseTest extends AbstractBaseTest {
 
     @Test()
     public void firstExerciseWithVoidPagesTest() {
-
         FirstExerciseData data = new FirstExerciseData();
         JdiIndexVoidPage indexPage = new JdiIndexVoidPage(driver);
         // 2. Assert Browser title
@@ -27,9 +26,8 @@ public class FirstExerciseTest extends AbstractBaseTest {
         indexPage.profile().login(user);
 
         // 4. Assert Username is loggined
-        Optional<String> userName = indexPage.profile().getUserNameIfDisplayed();
-        assertThat(userName.isPresent()).isTrue();
-        assertThat(userName.get()).isEqualTo(user.getDisplayedName());
+        String userName = indexPage.profile().getUserNameIfDisplayed();
+        assertThat(userName).isEqualTo(user.getDisplayedName());
 
         // 5. Assert that there are 4 items on the header section
         // are displayed and they have proper texts
@@ -80,7 +78,6 @@ public class FirstExerciseTest extends AbstractBaseTest {
 
     @Test()
     public void firstExerciseWithFluentPagesTest() {
-
         FirstExerciseData data = new FirstExerciseData();
         JdiIndexFluentPage indexPage = new JdiIndexFluentPage(driver);
         // 2. Assert Browser title
@@ -91,9 +88,8 @@ public class FirstExerciseTest extends AbstractBaseTest {
         indexPage.profile().login(user);
 
         // 4. Assert Username is loggined
-        Optional<String> userName = indexPage.profile().getUserNameIfDisplayed();
-        assertThat(userName.isPresent()).isTrue();
-        assertThat(userName.get()).isEqualTo(user.getDisplayedName());
+        String userName = indexPage.profile().getUserNameIfDisplayed();
+        assertThat(userName).isEqualTo(user.getDisplayedName());
 
         // 5. Assert that there are 4 items on the header section
         // are displayed and they have proper texts

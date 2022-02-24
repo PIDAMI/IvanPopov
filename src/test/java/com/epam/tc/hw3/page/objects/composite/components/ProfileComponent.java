@@ -2,7 +2,7 @@ package com.epam.tc.hw3.page.objects.composite.components;
 
 import com.epam.tc.hw3.entities.User;
 import com.epam.tc.hw3.page.objects.composite.AbstractBaseComponent;
-import java.util.Optional;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -35,10 +35,10 @@ public class ProfileComponent extends AbstractBaseComponent {
         loginButton.click();
     }
 
-
-    public Optional<String> getUserNameIfDisplayed() {
-        return userName.isDisplayed()
-            ? Optional.of(userName.getText())
-            : Optional.empty();
+    public String getUserNameIfDisplayed() {
+        if (!userName.isDisplayed()) {
+            throw new NoSuchElementException("User name is not displayed");
+        }
+        return userName.getText();
     }
 }

@@ -1,12 +1,11 @@
 package com.epam.tc.hw3.page.objects.voids;
 
 import static com.epam.tc.hw3.AbstractBaseTest.TIMEOUT_SECONDS;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -42,41 +41,39 @@ public class DifferentElementsVoidPage {
     @FindBy(xpath = "//*[contains(text(),'Selen')]")
     private List<WebElement> radioCheckboxesLog;
 
-
     public DifferentElementsVoidPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
         PageFactory.initElements(driver, this);
     }
 
-    private List<Boolean> selectCheckboxes(List<WebElement> allCheckboxes,
-                                 List<String> neededCheckboxesText) {
-        return allCheckboxes.stream()
-                            .filter(el -> neededCheckboxesText.contains(el.getText()))
-                            .map(el -> {
-                                WebElement inputForm = el.findElement(By.xpath("./input"));
-                                wait.until(ExpectedConditions.elementToBeClickable(inputForm)).click();
-                                return inputForm.isSelected();
-                            })
-                            .collect(Collectors.toList());
+    private void selectCheckboxesAndCheckIfSelected(List<WebElement> allCheckboxes,
+                                                                           List<String> neededCheckboxesText) {
+        allCheckboxes.stream()
+                     .filter(el -> neededCheckboxesText.contains(el.getText()))
+                     .forEach(el -> {
+                         WebElement inputForm = el.findElement(By.xpath("./input"));
+                         wait.until(ExpectedConditions.elementToBeClickable(inputForm)).click();
+                         assertThat(inputForm.isSelected()).isTrue();
+                     });
     }
 
-    public List<Boolean> selectElementsCheckboxesAndCheckIfSelected(List<String> checkboxesText) {
-        return selectCheckboxes(elementsCheckboxes, checkboxesText);
+    public void selectElementsCheckboxesAndCheckIfSelected(List<String> checkboxesText) {
+        selectCheckboxesAndCheckIfSelected(elementsCheckboxes, checkboxesText);
     }
 
-    public Boolean selectRadioCheckboxesAndCheckIfSelected(String checkboxesText) {
-        return selectCheckboxes(radioCheckboxes, List.of(checkboxesText)).get(0);
+    public void selectRadioCheckboxesAndCheckIfSelected(String checkboxesText) {
+        selectCheckboxesAndCheckIfSelected(radioCheckboxes, List.of(checkboxesText));
     }
 
-    public Boolean selectColorAndCheckIfSelected(String color) {
+    public void selectColorAndCheckIfSelected(String color) {
         colorForm.click();
         colorOptions.stream()
-            .filter(el -> color.equals(el.getText()))
-            .forEach(el -> wait.until(ExpectedConditions.elementToBeClickable(el)).click());
+                    .filter(el -> color.equals(el.getText()))
+                    .forEach(el -> wait.until(ExpectedConditions.elementToBeClickable(el)).click());
 
         String checkedOption = new Select(colorForm).getFirstSelectedOption().getText();
-        return checkedOption.equals(color);
+        assertThat(checkedOption).isEqualTo(color);
     }
 
     private List<String> getLogIfDisplayed(List<WebElement> logElements, List<String> checkboxText) {
@@ -93,19 +90,15 @@ public class DifferentElementsVoidPage {
         return checkedOptions.stream().anyMatch(actualLog::contains);
     }
 
-    public Optional<String> getColorLogIfDisplayed(String color) {
-        List<String> log = getLogIfDisplayed(List.of(colorLog), List.of(color));
-        return log.isEmpty() ? Optional.empty() : Optional.of(log.get(0));
+    public List<String> getColorLogIfDisplayed(String color) {
+        return getLogIfDisplayed(List.of(colorLog), List.of(color));
     }
 
     public List<String> getElementsCheckboxLogIfDisplayed(List<String> checkboxesText) {
         return getLogIfDisplayed(elementsCheckboxesLog, checkboxesText);
     }
 
-    public Optional<String> getRadioCheckboxLogIfDisplayed(String checkboxesText) {
-        List<String> log = getLogIfDisplayed(radioCheckboxesLog, List.of(checkboxesText));
-        return log.isEmpty() ? Optional.empty() : Optional.of(log.get(0));
+    public List<String> getRadioCheckboxLogIfDisplayed(String checkboxesText) {
+        return getLogIfDisplayed(radioCheckboxesLog, List.of(checkboxesText));
     }
-
-
 }

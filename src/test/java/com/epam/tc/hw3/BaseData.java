@@ -24,7 +24,6 @@ public class BaseData {
             String displayedName = prop.getProperty("displayedName");
 
             return new User(username, password, displayedName);
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

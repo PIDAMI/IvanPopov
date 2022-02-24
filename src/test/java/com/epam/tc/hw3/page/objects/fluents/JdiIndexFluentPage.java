@@ -38,8 +38,6 @@ public class JdiIndexFluentPage {
         + "//*[contains(text(),'Different elements')]")
     private WebElement differentElementsButton;
 
-
-
     public JdiIndexFluentPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
