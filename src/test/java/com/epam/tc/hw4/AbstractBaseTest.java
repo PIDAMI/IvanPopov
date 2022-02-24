@@ -25,7 +25,12 @@ public abstract class AbstractBaseTest {
 
     @BeforeMethod
     public void setUp(ITestContext context) {
-        driver = new ChromeDriver();
+//        System.setProperty("webdriver.chrome.bin", "/usr/bin/google-chrome-stable");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--headless");
+        driver = new ChromeDriver(options);
         context.setAttribute("driver", driver);
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
