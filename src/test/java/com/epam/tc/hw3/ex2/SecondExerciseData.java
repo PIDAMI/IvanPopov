@@ -18,7 +18,7 @@ public class SecondExerciseData extends BaseData {
         return elementsCheckboxesText;
     }
 
-    public String getRadioCheckboxesText() {
+    public String getRadioButtonsText() {
         return radioCheckboxesText;
     }
 

@@ -36,8 +36,8 @@ public class SecondExerciseTest extends AbstractBaseTest {
         differentElementsPage.selectElementsCheckboxesAndCheckIfSelected(elementsCheckboxesText);
 
         // 7. Select radio
-        String radioCheckboxesText = data.getRadioCheckboxesText();
-        differentElementsPage.selectRadioCheckboxesAndCheckIfSelected(radioCheckboxesText);
+        String radioButtonsText = data.getRadioButtonsText();
+        differentElementsPage.selectRadioButtonsAndCheckIfSelected(radioButtonsText);
 
         // 8. Select in dropdown
         String color = data.getColor();
@@ -54,7 +54,7 @@ public class SecondExerciseTest extends AbstractBaseTest {
         // for radio button there is a log row
         // and value is corresponded to the status of radio button
         List<String> radioLog = differentElementsPage
-            .getRadioCheckboxLogIfDisplayed(radioCheckboxesText);
+            .getRadioButtonsLogIfDisplayed(radioButtonsText);
         assertThat(radioLog.isEmpty()).isFalse();
 
         // 9. Assert that
@@ -86,8 +86,8 @@ public class SecondExerciseTest extends AbstractBaseTest {
         differentElementsPage.selectElementsCheckboxesAndCheckIfSelected(elementsCheckboxesText);
 
         // 7. Select radio
-        String radioCheckboxesText = data.getRadioCheckboxesText();
-        differentElementsPage.selectRadioCheckboxesAndCheckIfSelected(radioCheckboxesText);
+        String radioButtonsText = data.getRadioButtonsText();
+        differentElementsPage.selectRadioButtonsAndCheckIfSelected(radioButtonsText);
 
         // 8. Select in dropdown
         String color = data.getColor();
@@ -104,7 +104,7 @@ public class SecondExerciseTest extends AbstractBaseTest {
         // for radio button there is a log row
         // and value is corresponded to the status of radio button
         List<String> radioLog = differentElementsPage
-            .getRadioCheckboxLogIfDisplayed(radioCheckboxesText);
+            .getRadioButtonsLogIfDisplayed(radioButtonsText);
         assertThat(radioLog.isEmpty()).isFalse();
 
         // 9. Assert that

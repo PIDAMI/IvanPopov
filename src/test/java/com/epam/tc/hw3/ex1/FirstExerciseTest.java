@@ -7,7 +7,6 @@ import com.epam.tc.hw3.entities.User;
 import com.epam.tc.hw3.page.objects.fluents.JdiIndexFluentPage;
 import com.epam.tc.hw3.page.objects.voids.JdiIndexVoidPage;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
