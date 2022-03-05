@@ -1,26 +1,23 @@
-package com.epam.tc.hw2;
+package com.epam.tc.hw5;
 
-import com.epam.tc.hw2.entities.User;
+import com.epam.tc.hw5.entities.User;
+import io.qameta.allure.Step;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class BaseData {
+public abstract class AbstractBaseData {
 
-    protected String indexPageUrl = "https://jdi-testing.github.io/jdi-light/index.html";
     protected String expectedBrowserTitle = "Home Page";
-
-    public String getIndexPageUrl() {
-        return indexPageUrl;
-    }
 
     public String getExpectedBrowserTitle() {
         return expectedBrowserTitle;
     }
 
+    @Step("load user from properties")
     public static User loadUserFromProperties() {
         Properties prop = new Properties();
-        try (InputStream inputStream = BaseData.class
+        try (InputStream inputStream = AbstractBaseData.class
             .getResourceAsStream("/loginData.properties")) {
 
             prop.load(inputStream);

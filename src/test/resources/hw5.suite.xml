@@ -1,0 +1,16 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name = "hw5">
+
+  <listeners>
+    <listener class-name="com.epam.tc.hw5.listeners.ScreenshotListener"/>
+  </listeners>
+
+  <test name="hw5 test">
+    <packages>
+      <package name="com.epam.tc.hw5"></package>
+    </packages>
+  </test>
+
+</suite>

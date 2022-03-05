@@ -1,4 +1,4 @@
-package com.epam.tc.hw2.entities;
+package com.epam.tc.hw5.entities;
 
 public class User {
 
