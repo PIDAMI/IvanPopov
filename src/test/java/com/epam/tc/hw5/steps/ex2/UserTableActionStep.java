@@ -66,6 +66,8 @@ public class UserTableActionStep extends AbstractStep {
         assertThat(table.getRows().size()).isEqualTo(expectedSize);
     }
 
+    // Equal method is redefined for UserTableRow to match
+    // even if some field are null
     @Then("User table should contain following values:")
     public void checkUserTableIncludesData(DataTable data) {
         List<Map<String, String>> expectedRows = data.asMaps(String.class, String.class);
@@ -74,8 +76,9 @@ public class UserTableActionStep extends AbstractStep {
             Long num = Long.parseLong(expectedRow.get("Number"));
             String name = expectedRow.get("User");
             String description = expectedRow.get("Description");
-            assertThat(table.contains(new UserTableRow(num, null, description, name, null)))
-                .isTrue();
+            assertThat(table.contains(
+                new UserTableRow(num, null, description, name, null)
+            )).isTrue();
         }
     }
 
