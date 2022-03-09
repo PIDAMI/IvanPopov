@@ -1,6 +1,6 @@
 package com.epam.tc.hw5.page.objects.composite;
 
-import static com.epam.tc.hw5.AbstractBaseTest.TIMEOUT_SECONDS;
+import static com.epam.tc.hw5.hooks.CucumberHook.TIMEOUT_SECONDS;
 
 import java.time.Duration;
 import org.openqa.selenium.WebDriver;

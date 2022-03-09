@@ -1,5 +1,6 @@
 package com.epam.tc.hw5;
 
+import com.epam.tc.hw5.hooks.CucumberHook;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import java.time.Duration;
 import org.openqa.selenium.WebDriver;
@@ -14,7 +15,6 @@ import org.testng.annotations.BeforeSuite;
 public abstract class AbstractBaseTest {
 
     protected WebDriver driver;
-    public static final long TIMEOUT_SECONDS = 10;
     protected WebDriverWait wait;
 
     @BeforeSuite
@@ -29,9 +29,8 @@ public abstract class AbstractBaseTest {
         // THIS OPTION ENABLES ATTACHMENTS IN ALLURE REPORTS
         options.addArguments("--disable-dev-shm-usage");
         driver = new ChromeDriver(options);
-        context.setAttribute("driver", driver);
         driver.manage().window().maximize();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
+        context.setAttribute("driver", driver);
     }
 
     // 12. Close browser

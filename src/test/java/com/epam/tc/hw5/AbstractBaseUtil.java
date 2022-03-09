@@ -26,11 +26,4 @@ public abstract class AbstractBaseUtil {
         assertThat(indexPage.getPageTitle()).isEqualTo(expectedTitle);
     }
 
-    @Step("Check if user {user.login}:{user.password} is logged in "
-        + "and displayed name is equal to {user.displayedName}")
-    public void checkIfUserLoggedIn(User user) {
-        Optional<String> userName = indexPage.profile().getUserNameIfDisplayed();
-        assertThat(userName.isPresent()).isTrue();
-        assertThat(userName.get()).isEqualTo(user.getDisplayedName());
-    }
 }

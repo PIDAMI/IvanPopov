@@ -23,9 +23,9 @@ public abstract class AbstractBaseData {
             prop.load(inputStream);
             String username = prop.getProperty("username");
             String password = prop.getProperty("password");
-            String displayedName = prop.getProperty("displayedName");
+            String name = prop.getProperty("password");
 
-            return new User(username, password, displayedName);
+            return new User(username, password, name);
 
         } catch (IOException e) {
             throw new RuntimeException(e);

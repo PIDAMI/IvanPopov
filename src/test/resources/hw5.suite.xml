@@ -9,7 +9,7 @@
 
   <test name="hw5 test">
     <packages>
-      <package name="com.epam.tc.hw5"></package>
+      <package name="com.epam.tc.hw5.tests"></package>
     </packages>
   </test>
 

@@ -1,7 +1,5 @@
 package com.epam.tc.hw5.page.objects.voids;
 
-import static com.epam.tc.hw5.AbstractBaseTest.TIMEOUT_SECONDS;
-
 import com.epam.tc.hw5.page.objects.composite.components.BottomPartComponent;
 import com.epam.tc.hw5.page.objects.composite.components.HeaderComponent;
 import com.epam.tc.hw5.page.objects.composite.components.LeftSectionComponent;
@@ -18,10 +16,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class JdiIndexVoidPage {
+public class JdiIndexVoidPage extends AbstractBaseVoidPage {
 
-    private final WebDriver driver;
-    private final WebDriverWait wait;
     private final ProfileComponent profile;
     private final HeaderComponent header;
     private final BottomPartComponent bottomPart;
@@ -39,15 +35,13 @@ public class JdiIndexVoidPage {
         + "//*[contains(text(),'Different elements')]")
     private WebElement differentElementsButton;
 
-    public JdiIndexVoidPage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
+    public JdiIndexVoidPage() {
+        super();
         PageFactory.initElements(driver, this);
         profile = new ProfileComponent(driver);
         header = new HeaderComponent(driver);
         bottomPart = new BottomPartComponent(driver);
         leftSection = new LeftSectionComponent(driver);
-        driver.get(indexPageUrl);
     }
 
     public ProfileComponent profile() {
@@ -70,6 +64,10 @@ public class JdiIndexVoidPage {
         return driver.getTitle();
     }
 
+    public String getUrl() {
+        return indexPageUrl;
+    }
+
     // throws NoSuchElementException if such frame doesn't exist
     @Step("Switching to frame with button with value {buttonValue}")
     public void switchToFrameWithButton(final String buttonValue) {
@@ -87,7 +85,6 @@ public class JdiIndexVoidPage {
         throw new NoSuchElementException(String.format("frame with button with value %s not found", buttonValue));
     }
 
-
     public void switchToMainWindow() {
         driver.switchTo().defaultContent();
     }
@@ -97,5 +94,4 @@ public class JdiIndexVoidPage {
         serviceButton.click();
         differentElementsButton.click();
     }
-
 }

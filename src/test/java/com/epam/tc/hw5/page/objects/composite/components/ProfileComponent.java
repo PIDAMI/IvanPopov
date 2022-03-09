@@ -38,9 +38,7 @@ public class ProfileComponent extends AbstractBaseComponent {
     }
 
     @Step("Getting logged user's displayed name")
-    public Optional<String> getUserNameIfDisplayed() {
-        return userName.isDisplayed()
-            ? Optional.of(userName.getText())
-            : Optional.empty();
+    public String getUserNameIfDisplayed() {
+        return userName.getText();
     }
 }

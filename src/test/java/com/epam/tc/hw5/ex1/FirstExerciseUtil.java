@@ -9,6 +9,7 @@ import io.qameta.allure.Step;
 import java.util.List;
 import java.util.Optional;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class FirstExerciseUtil extends AbstractBaseUtil {
@@ -21,50 +22,26 @@ public class FirstExerciseUtil extends AbstractBaseUtil {
         this.differentElementsPage = differentElementsPage;
     }
 
-    @Step("Select elements checkboxes with values {elementsCheckboxesText} "
-        + "and check if they've been selected")
-    public void selectElementsCheckboxesAndCheckIfSelected(List<String> elementsCheckboxesText) {
-        List<Boolean> checkboxesChecked = differentElementsPage
-            .selectElementsCheckboxesAndCheckIfSelected(elementsCheckboxesText);
-        checkboxesChecked.forEach(checked -> assertThat(checked).isTrue());
-    }
+//    @Step("Select elements checkboxes with values {elementsCheckboxesText} "
+//        + "and check if they've been selected")
+//    public List<WebElement> selectElementsCheckboxesAndGetSelected(List<String> elementsCheckboxesText) {
+//        return differentElementsPage
+//            .selectElementsCheckboxesAndGetSelected(elementsCheckboxesText);
+//    }
+//
+//    @Step("Select radio checkboxes with values {radioCheckboxesText} "
+//        + "and check if it's been selected")
+//    public List<WebElement> selectRadioCheckboxesAndGetSelected(String radioCheckboxesText) {
+//        return differentElementsPage
+//            .selectRadioCheckboxesAndGetSelected(radioCheckboxesText);
+//    }
+//
+//    @Step("Select color option with value {color} and check if it's been selected")
+//    public WebElement selectColorAndGetSelected(String color) {
+//        return differentElementsPage.selectColorAndGetSelected(color);
+//    }
 
-    @Step("Select radio checkboxes with values {radioCheckboxesText} "
-        + "and check if it's been selected")
-    public void selectRadioCheckboxesAndCheckIfSelected(String radioCheckboxesText) {
-        Boolean radioChecked = differentElementsPage
-            .selectRadioCheckboxesAndCheckIfSelected(radioCheckboxesText);
-        assertThat(radioChecked).isTrue();
-    }
 
-    @Step("Select color option with value {color} and check if it's been selected")
-    public void selectColorAndCheckIfSelected(String color) {
-        Boolean colorChecked = differentElementsPage.selectColorAndCheckIfSelected(color);
-        assertThat(colorChecked).isTrue();
-    }
-
-    @Step("Check if elements checkboxes log is displayed and its value corresponds to checked "
-        + "options {elementsCheckboxesText}")
-    public void checkIfElementCheckboxesLogIsDisplayed(List<String> elementsCheckboxesText) {
-        List<String> elementsLog = differentElementsPage
-            .getElementsCheckboxLogIfDisplayed(elementsCheckboxesText);
-        assertThat(elementsLog.size()).isEqualTo(elementsCheckboxesText.size());
-    }
-
-    @Step("Check if radio checkboxes log is displayed and its value corresponds to checked "
-        + "options {radioCheckboxesText}")
-    public void checkIfRadioCheckboxesLogIsDisplayed(String radioCheckboxesText) {
-        Optional<String> radioLog = differentElementsPage
-            .getRadioCheckboxLogIfDisplayed(radioCheckboxesText);
-        assertThat(radioLog.isPresent()).isTrue();
-    }
-
-    @Step("Check if color options log is displayed and its value corresponds to checked "
-        + "options {elementsCheckboxesText}")
-    public void checkIfColorOptionsLogIsDisplayed(String color) {
-        Optional<String> colorLog = differentElementsPage.getColorLogIfDisplayed(color);
-        assertThat(colorLog.isPresent()).isTrue();
-    }
 
 
 }

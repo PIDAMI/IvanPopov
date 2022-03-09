@@ -22,15 +22,33 @@
         <allure-testng.version>2.17.2</allure-testng.version>
         <allure-maven.version>2.11.2</allure-maven.version>
         <aspectj.version>1.9.7</aspectj.version>
-        <cucumber.version>7.2.3</cucumber.version>
+        <cucumber.version>7.1.0</cucumber.version>
+        <cucumber.allure.adapter.version>2.17.3</cucumber.allure.adapter.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
             <version>${cucumber.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-cucumber4-jvm</artifactId>
+            <version>${cucumber.allure.adapter.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
@@ -40,11 +58,6 @@
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <version>${allure-testng.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-java</artifactId>
-            <version>${cucumber.version}</version>
         </dependency>
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
@@ -81,10 +94,14 @@
                     <configuration>
                         <argLine>
                             -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+<!--                            -Dcucumber.options="&#45;&#45;plugin io.qameta.allure.cucumber4jvm.AllureCucumber4Jvm"-->
                         </argLine>
                         <suiteXmlFiles>
                             <suiteXmlFile>${testng.configs.path}/${suite.xml.name}</suiteXmlFile>
                         </suiteXmlFiles>
+                        <includes>
+                            <include>**/*CucumberTestRunner.java</include>
+                        </includes>
                     </configuration>
                 </plugin>
             </plugins>
@@ -93,12 +110,12 @@
 
     <profiles>
         <profile>
-            <id>voids</id>
+            <id>cucumber</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <suite.xml.name>voids-suite.xml</suite.xml.name>
+                <suite.xml.name>hw5.suite.xml</suite.xml.name>
             </properties>
         </profile>
     </profiles>

@@ -4,12 +4,12 @@ public class User {
 
     private final String login;
     private final String password;
-    private final String displayedName;
+    private final String name;
 
-    public User(final String login, final String password, final String displayedName) {
+    public User(final String login, final String password, final String name) {
         this.login = login;
         this.password = password;
-        this.displayedName = displayedName;
+        this.name = name;
     }
 
     public String getLogin() {
@@ -20,8 +20,7 @@ public class User {
         return password;
     }
 
-    public String getDisplayedName() {
-        return displayedName;
+    public String getName() {
+        return name;
     }
-
 }

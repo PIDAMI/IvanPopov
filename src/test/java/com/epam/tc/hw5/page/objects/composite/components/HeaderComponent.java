@@ -4,28 +4,42 @@ import com.epam.tc.hw5.page.objects.composite.AbstractBaseComponent;
 import io.qameta.allure.Step;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HeaderComponent extends AbstractBaseComponent {
 
-    @FindBy(css = "nav > ul.uui-navigation.nav.navbar-nav.m-l8 > li")
+    @FindBy(xpath = "//div[@class='uui-header dark-gray']//li")
     private List<WebElement> navigationButtons;
+
+    @FindBy(xpath = "//div[@class='uui-header dark-gray']//ul[@class='dropdown-menu']/li")
+    private List<WebElement> serviceButtons;
 
     public HeaderComponent(WebDriver driver) {
         super(driver);
     }
 
-    @Step("Getting navigation buttons")
-    public List<WebElement> getNavigationButtons() {
-        return List.copyOf(navigationButtons);
+    @Step("Getting navigation buttons' text")
+    public void clickServiceButton(String buttonText) {
+        List<WebElement> button = navigationButtons
+            .stream()
+            .filter(el -> {
+                WebElement childElementWithText = el.findElement(By.xpath("./a"));
+                return childElementWithText.getText().trim().equalsIgnoreCase(buttonText);
+            })
+            .collect(Collectors.toList());
+        button.get(0).click();
     }
 
-    @Step("Getting navigation buttons' text")
-    public List<String> getNavigationButtonsText() {
-        return navigationButtons.stream()
-                                .map(WebElement::getText)
-                                .collect(Collectors.toList());
+    public void clickButtonInService(String buttonText) {
+        List<WebElement> buttons = serviceButtons.stream()
+                                                 .filter(el -> el.getText().trim().equalsIgnoreCase(buttonText))
+                                                 .collect(Collectors.toList());
+        buttons.get(0).click();
     }
+
 }
