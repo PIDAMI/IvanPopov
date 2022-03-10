@@ -13,5 +13,4 @@ public class UserTable {
     public List<UserTableRow> getRows() {
         return rows;
     }
-
 }

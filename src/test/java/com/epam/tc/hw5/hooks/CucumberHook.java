@@ -1,6 +1,5 @@
 package com.epam.tc.hw5.hooks;
 
-import com.epam.tc.hw5.AbstractBaseData;
 import com.epam.tc.hw5.context.TestContext;
 import com.epam.tc.hw5.entities.User;
 import io.cucumber.java.After;
@@ -15,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -27,14 +25,15 @@ public class CucumberHook {
     @BeforeAll()
     public static void setUpAll() {
         WebDriverManager.chromedriver().setup();
-        Map<String, User> users = new HashMap<>();
-        User user = loadUserFromProperties();
-        users.put(user.getName(), user);
-        TestContext.getInstance().setObject("nameToUserMap", users);
     }
 
     @Before()
     public void setUp() {
+        Map<String, User> users = new HashMap<>();
+        User user = loadUserFromProperties();
+        users.put(user.getName(), user);
+        TestContext.getInstance().setObject("nameToUserMap", users);
+
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-dev-shm-usage");
         driver = new ChromeDriver(options);
@@ -47,23 +46,13 @@ public class CucumberHook {
 
     @After()
     public void tearDown(Scenario scenario) {
-        //        if (scenario.isFailed()) {
-        //            try {
-        //                byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-        //                scenario.attach(screenshot, "image/png", scenario.getName());
-        //            } catch (WebDriverException wde) {
-        //                System.err.println(wde.getMessage());
-        //            } catch (ClassCastException cce) {
-        //                cce.printStackTrace();
-        //            }
-        //        }
         driver.quit();
         TestContext.getInstance().cleanContext();
     }
 
     public static User loadUserFromProperties() {
         Properties prop = new Properties();
-        try (InputStream inputStream = AbstractBaseData.class
+        try (InputStream inputStream = CucumberHook.class
             .getResourceAsStream("/loginData.properties")) {
 
             prop.load(inputStream);
@@ -76,5 +65,4 @@ public class CucumberHook {
             throw new RuntimeException(e);
         }
     }
-
 }

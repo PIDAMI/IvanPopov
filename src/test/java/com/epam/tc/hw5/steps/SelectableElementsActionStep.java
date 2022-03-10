@@ -1,4 +1,4 @@
-package com.epam.tc.hw5.steps.ex1;
+package com.epam.tc.hw5.steps;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

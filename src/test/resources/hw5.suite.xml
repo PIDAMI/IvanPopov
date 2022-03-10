@@ -3,13 +3,9 @@
 
 <suite name = "hw5">
 
-  <listeners>
-    <listener class-name="com.epam.tc.hw5.listeners.ScreenshotListener"/>
-  </listeners>
-
   <test name="hw5 test">
     <packages>
-      <package name="com.epam.tc.hw5.tests"></package>
+      <package name="com.epam.tc.hw5.tests.cucumber"></package>
     </packages>
   </test>
 

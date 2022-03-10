@@ -10,8 +10,7 @@ public final class TestContext {
 
     private static TestContext instance;
 
-    private TestContext() {
-    }
+    private TestContext() {}
 
     public void setObject(final String key, final Object object) {
         context.put(key, object);

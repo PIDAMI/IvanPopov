@@ -100,7 +100,7 @@
                             <suiteXmlFile>${testng.configs.path}/${suite.xml.name}</suiteXmlFile>
                         </suiteXmlFiles>
                         <includes>
-                            <include>**/*CucumberTestRunner.java</include>
+                            <include>**/CucumberTestRunner.java</include>
                         </includes>
                     </configuration>
                 </plugin>
