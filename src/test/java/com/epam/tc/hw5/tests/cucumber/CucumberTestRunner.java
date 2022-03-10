@@ -1,4 +1,4 @@
-package com.epam.tc.hw5.tests;
+package com.epam.tc.hw5.tests.cucumber;
 
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;

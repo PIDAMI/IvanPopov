@@ -1,4 +1,4 @@
-package com.epam.tc.hw5.steps.ex2;
+package com.epam.tc.hw5.steps;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -33,6 +33,17 @@ public class UserTableActionStep extends AbstractStep {
     @When("I click on {string} button in Service dropdown")
     public void clickButtonInService(String buttonText) {
         indexPage.header().clickButtonInService(buttonText);
+    }
+
+    @When("I select {string} checkbox for {string}")
+    public void selectCheckboxForUser(String checkboxName, String userName) {
+        tablePage.clickCheckbox(checkboxName, userName);
+    }
+
+    @Then("{int} log row has {string} text in log section")
+    public void testCheckboxLogDisplayed(int numLogRows, String logText) {
+        List<String> checkboxLogs = tablePage.getCheckboxLog(logText);
+        assertThat(checkboxLogs.size()).isEqualTo(numLogRows);
     }
 
     @Then("{string} page should be opened")
@@ -72,6 +83,7 @@ public class UserTableActionStep extends AbstractStep {
     public void checkUserTableIncludesData(DataTable data) {
         List<Map<String, String>> expectedRows = data.asMaps(String.class, String.class);
         List<UserTableRow> table = tablePage.getTable().getRows();
+
         for (Map<String, String> expectedRow : expectedRows) {
             Long num = Long.parseLong(expectedRow.get("Number"));
             String name = expectedRow.get("User");
@@ -80,6 +92,17 @@ public class UserTableActionStep extends AbstractStep {
                 new UserTableRow(num, null, description, name, null)
             )).isTrue();
         }
+    }
+
+    @Then("droplist should contain values in column Type for user {string}")
+    public void checkDroplistValues(String userName, DataTable data) {
+        List<String> expectedOptions = data.asList(String.class);
+        List<String> actualDroplistOptions = tablePage.getDroplistOptions(userName);
+
+        expectedOptions
+            .stream()
+            .skip(1) // skip header
+            .forEach(option -> assertThat(actualDroplistOptions.contains(option)).isTrue());
     }
 
 }
