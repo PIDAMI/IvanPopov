@@ -1,6 +1,6 @@
 package com.epam.tc.hw6;
 
-import com.epam.tc.hw4.entities.User;
+import com.epam.tc.hw6.entities.User;
 import io.qameta.allure.Step;
 import java.io.IOException;
 import java.io.InputStream;

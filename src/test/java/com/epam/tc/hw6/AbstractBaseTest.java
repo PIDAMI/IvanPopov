@@ -1,10 +1,10 @@
 package com.epam.tc.hw6;
 
+import com.epam.tc.hw6.driver.WebDriverProvider;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import java.net.MalformedURLException;
 import java.time.Duration;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
@@ -17,18 +17,14 @@ public abstract class AbstractBaseTest {
     public static final long TIMEOUT_SECONDS = 10;
     protected WebDriverWait wait;
 
-    @BeforeSuite
-    public void beforeSuite() {
-        WebDriverManager.chromedriver().setup();
-    }
-
+//    @BeforeSuite
+//    public void beforeSuite() {
+//        WebDriverManager.chromedriver().setup();
+//    }
 
     @BeforeMethod
-    public void setUp(ITestContext context) {
-        ChromeOptions options = new ChromeOptions();
-        // THIS OPTION ENABLES ATTACHMENTS IN ALLURE REPORTS
-        options.addArguments("--disable-dev-shm-usage");
-        driver = new ChromeDriver(options);
+    public void setUp(ITestContext context) throws MalformedURLException {
+        driver = WebDriverProvider.getDriver();
         context.setAttribute("driver", driver);
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
@@ -37,6 +33,6 @@ public abstract class AbstractBaseTest {
     // 12. Close browser
     @AfterMethod
     public void tearDown() {
-        driver.quit();
+        WebDriverProvider.closeDriver();
     }
 }

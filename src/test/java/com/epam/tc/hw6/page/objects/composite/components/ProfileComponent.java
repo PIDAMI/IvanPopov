@@ -1,12 +1,13 @@
 package com.epam.tc.hw6.page.objects.composite.components;
 
-import com.epam.tc.hw4.entities.User;
-import com.epam.tc.hw4.page.objects.composite.AbstractBaseComponent;
+import com.epam.tc.hw6.entities.User;
+import com.epam.tc.hw6.page.objects.composite.AbstractBaseComponent;
 import io.qameta.allure.Step;
 import java.util.Optional;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ProfileComponent extends AbstractBaseComponent {
 
@@ -25,8 +26,8 @@ public class ProfileComponent extends AbstractBaseComponent {
     @FindBy(css = "span#user-name")
     private WebElement userName;
 
-    public ProfileComponent(WebDriver driver) {
-        super(driver);
+    public ProfileComponent(WebDriver driver, WebDriverWait wait) {
+        super(driver, wait);
     }
 
     @Step("logging in with login {user.login}:{user.password}")

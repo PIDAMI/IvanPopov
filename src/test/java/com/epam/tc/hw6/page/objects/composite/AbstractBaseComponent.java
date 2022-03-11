@@ -1,7 +1,5 @@
 package com.epam.tc.hw6.page.objects.composite;
 
-import static com.epam.tc.hw4.AbstractBaseTest.TIMEOUT_SECONDS;
-
 import java.time.Duration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -12,9 +10,9 @@ public abstract class AbstractBaseComponent {
     protected WebDriver driver;
     protected WebDriverWait wait;
 
-    protected AbstractBaseComponent(WebDriver driver) {
+    protected AbstractBaseComponent(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
+        this.wait = wait;
         PageFactory.initElements(this.driver, this);
     }
 

@@ -18,21 +18,13 @@
         <webdrivermanager.version>5.0.3</webdrivermanager.version>
         <selenuim-java.version>4.0.0</selenuim-java.version>
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
+        <cucumber.version>7.2.3</cucumber.version>
+        <allure-testng.version>2.17.2</allure-testng.version>
+        <allure-maven.version>2.11.2</allure-maven.version>
+        <aspectj.version>1.9.7</aspectj.version>
     </properties>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
-        <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>${webdrivermanager.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>${selenuim-java.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
@@ -42,6 +34,11 @@
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <version>${allure-testng.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
         </dependency>
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
@@ -76,6 +73,16 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${surefire-plugin.version}</version>
                     <configuration>
+                        <systemProperties>
+                            <property>
+                                <name>launch.type</name>
+                                <value>${launch.type.value}</value>
+                            </property>
+                            <property>
+                                <name>browser.name</name>
+                                <value>${browser.name.value}</value>
+                            </property>
+                        </systemProperties>
                         <argLine>
                             -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                         </argLine>
@@ -90,13 +97,25 @@
 
     <profiles>
         <profile>
-            <id>voids</id>
+            <id>chrome</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <suite.xml.name>voids-suite.xml</suite.xml.name>
-
+                <suite.xml.name>hw6-suite.xml</suite.xml.name>
+                <launch.type.value>remote</launch.type.value>
+                <browser.name.value>chrome</browser.name.value>
+            </properties>
+        </profile>
+        <profile>
+            <id>firefox</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <suite.xml.name>hw6-suite.xml</suite.xml.name>
+                <launch.type.value>remote</launch.type.value>
+                <browser.name.value>firefox</browser.name.value>
             </properties>
         </profile>
     </profiles>

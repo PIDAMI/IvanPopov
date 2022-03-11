@@ -1,11 +1,11 @@
 package com.epam.tc.hw6.page.objects.voids;
 
-import static com.epam.tc.hw4.AbstractBaseTest.TIMEOUT_SECONDS;
+import static com.epam.tc.hw6.AbstractBaseTest.TIMEOUT_SECONDS;
 
-import com.epam.tc.hw4.page.objects.composite.components.BottomPartComponent;
-import com.epam.tc.hw4.page.objects.composite.components.HeaderComponent;
-import com.epam.tc.hw4.page.objects.composite.components.LeftSectionComponent;
-import com.epam.tc.hw4.page.objects.composite.components.ProfileComponent;
+import com.epam.tc.hw6.page.objects.composite.components.BottomPartComponent;
+import com.epam.tc.hw6.page.objects.composite.components.HeaderComponent;
+import com.epam.tc.hw6.page.objects.composite.components.LeftSectionComponent;
+import com.epam.tc.hw6.page.objects.composite.components.ProfileComponent;
 import io.qameta.allure.Step;
 import java.time.Duration;
 import java.util.List;
@@ -18,10 +18,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class JdiIndexVoidPage {
+public class JdiIndexVoidPage extends AbstractBasePage {
 
-    private final WebDriver driver;
-    private final WebDriverWait wait;
     private final ProfileComponent profile;
     private final HeaderComponent header;
     private final BottomPartComponent bottomPart;
@@ -39,14 +37,13 @@ public class JdiIndexVoidPage {
         + "//*[contains(text(),'Different elements')]")
     private WebElement differentElementsButton;
 
-    public JdiIndexVoidPage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
+    public JdiIndexVoidPage(WebDriver driver, WebDriverWait wait) {
+        super(driver, wait);
         PageFactory.initElements(driver, this);
-        profile = new ProfileComponent(driver);
-        header = new HeaderComponent(driver);
-        bottomPart = new BottomPartComponent(driver);
-        leftSection = new LeftSectionComponent(driver);
+        profile = new ProfileComponent(driver, wait);
+        header = new HeaderComponent(driver, wait);
+        bottomPart = new BottomPartComponent(driver, wait);
+        leftSection = new LeftSectionComponent(driver, wait);
         driver.get(indexPageUrl);
     }
 

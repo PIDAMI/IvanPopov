@@ -1,0 +1,1 @@
+{"uuid":"ab7082d2-6ca8-400d-9626-e5837e8bc221","name":"hw6-suite","children":["c8f7a3ce-677b-43e2-91f6-0d1d6749b159"],"befores":[{"name":"beforeSuite","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1646969802914,"stop":1646969804488}],"afters":[],"start":1646969802870,"stop":1646969819158}

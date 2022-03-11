@@ -1,6 +1,6 @@
 package com.epam.tc.hw6.page.objects.voids;
 
-import static com.epam.tc.hw4.AbstractBaseTest.TIMEOUT_SECONDS;
+import static com.epam.tc.hw6.AbstractBaseTest.TIMEOUT_SECONDS;
 
 import io.qameta.allure.Step;
 import java.time.Duration;
@@ -17,10 +17,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class DifferentElementsVoidPage {
-
-    private final WebDriver driver;
-    private final WebDriverWait wait;
+public class DifferentElementsVoidPage extends AbstractBasePage {
 
     @FindBy(xpath = "//label[@class='label-checkbox']")
     private List<WebElement> elementsCheckboxes;
@@ -43,9 +40,8 @@ public class DifferentElementsVoidPage {
     @FindBy(xpath = "//*[contains(text(),'Selen')]")
     private List<WebElement> radioCheckboxesLog;
 
-    public DifferentElementsVoidPage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
+    public DifferentElementsVoidPage(WebDriver driver, WebDriverWait wait) {
+        super(driver, wait);
         PageFactory.initElements(driver, this);
     }
 

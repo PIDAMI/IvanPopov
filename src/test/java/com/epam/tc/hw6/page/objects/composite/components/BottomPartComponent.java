@@ -1,12 +1,13 @@
 package com.epam.tc.hw6.page.objects.composite.components;
 
-import com.epam.tc.hw4.page.objects.composite.AbstractBaseComponent;
+import com.epam.tc.hw6.page.objects.composite.AbstractBaseComponent;
 import io.qameta.allure.Step;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BottomPartComponent extends AbstractBaseComponent {
 
@@ -19,8 +20,9 @@ public class BottomPartComponent extends AbstractBaseComponent {
         + "div.benefit > span.benefit-txt")
     private List<WebElement> textAfterImages;
 
-    public BottomPartComponent(WebDriver driver) {
-        super(driver);
+    public BottomPartComponent(WebDriver driver, WebDriverWait wait)
+    {
+        super(driver, wait);
     }
 
     @Step("Getting images in bottom part")

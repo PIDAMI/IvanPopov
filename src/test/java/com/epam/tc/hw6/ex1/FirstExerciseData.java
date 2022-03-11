@@ -1,7 +1,7 @@
 package com.epam.tc.hw6.ex1;
 
-import com.epam.tc.hw4.AbstractBaseData;
-import com.epam.tc.hw4.entities.User;
+import com.epam.tc.hw6.AbstractBaseData;
+import com.epam.tc.hw6.entities.User;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;

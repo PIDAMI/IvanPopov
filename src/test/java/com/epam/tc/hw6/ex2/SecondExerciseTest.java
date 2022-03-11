@@ -1,9 +1,9 @@
 package com.epam.tc.hw6.ex2;
 
-import com.epam.tc.hw4.AbstractBaseTest;
-import com.epam.tc.hw4.entities.User;
-import com.epam.tc.hw4.page.objects.voids.DifferentElementsVoidPage;
-import com.epam.tc.hw4.page.objects.voids.JdiIndexVoidPage;
+import com.epam.tc.hw6.AbstractBaseTest;
+import com.epam.tc.hw6.entities.User;
+import com.epam.tc.hw6.page.objects.voids.DifferentElementsVoidPage;
+import com.epam.tc.hw6.page.objects.voids.JdiIndexVoidPage;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
@@ -15,8 +15,8 @@ public class SecondExerciseTest extends AbstractBaseTest {
     @Test()
     public void secondExerciseWithVoidPagesTest() {
         SecondExerciseData data = new SecondExerciseData();
-        JdiIndexVoidPage indexPage = new JdiIndexVoidPage(driver);
-        DifferentElementsVoidPage differentElementsPage = new DifferentElementsVoidPage(driver);
+        JdiIndexVoidPage indexPage = new JdiIndexVoidPage(driver, wait);
+        DifferentElementsVoidPage differentElementsPage = new DifferentElementsVoidPage(driver, wait);
         SecondExerciseUtil util = new SecondExerciseUtil(driver, wait, indexPage, differentElementsPage);
         // 2. Assert Browser title
         util.checkIfTitleCorrect(data.getExpectedBrowserTitle());

@@ -2,8 +2,8 @@ package com.epam.tc.hw6;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.epam.tc.hw4.entities.User;
-import com.epam.tc.hw4.page.objects.voids.JdiIndexVoidPage;
+import com.epam.tc.hw6.entities.User;
+import com.epam.tc.hw6.page.objects.voids.JdiIndexVoidPage;
 import io.qameta.allure.Step;
 import java.util.Optional;
 import org.openqa.selenium.WebDriver;

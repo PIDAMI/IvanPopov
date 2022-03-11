@@ -1,8 +1,8 @@
 package com.epam.tc.hw6.ex1;
 
-import com.epam.tc.hw4.AbstractBaseTest;
-import com.epam.tc.hw4.entities.User;
-import com.epam.tc.hw4.page.objects.voids.JdiIndexVoidPage;
+import com.epam.tc.hw6.AbstractBaseTest;
+import com.epam.tc.hw6.entities.User;
+import com.epam.tc.hw6.page.objects.voids.JdiIndexVoidPage;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
@@ -15,7 +15,7 @@ public class FirstExerciseTest extends AbstractBaseTest {
     public void firstExerciseWithVoidPagesTest() {
 
         FirstExerciseData data = new FirstExerciseData();
-        JdiIndexVoidPage indexPage = new JdiIndexVoidPage(driver);
+        JdiIndexVoidPage indexPage = new JdiIndexVoidPage(driver, wait);
         FirstExerciseUtil util = new FirstExerciseUtil(driver, wait, indexPage);
         // 2. Assert Browser title
         util.checkIfTitleCorrect(data.getExpectedBrowserTitle());
