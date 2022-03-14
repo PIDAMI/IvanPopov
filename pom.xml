@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.epam.tc</groupId>
-    <artifactId>hw3</artifactId>
+    <artifactId>hw.jdi</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -21,6 +21,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.epam.jdi</groupId>
+            <artifactId>jdi-light-html</artifactId>
+            <version>RELEASE</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
@@ -67,21 +72,12 @@
 
     <profiles>
         <profile>
-            <id>voids</id>
+            <id>default</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <suite.xml.name>voids-suite.xml</suite.xml.name>
-            </properties>
-        </profile>
-        <profile>
-            <id>fluents</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <suite.xml.name>fluents-suite.xml</suite.xml.name>
+                <suite.xml.name>default-suite.xml</suite.xml.name>
             </properties>
         </profile>
     </profiles>
