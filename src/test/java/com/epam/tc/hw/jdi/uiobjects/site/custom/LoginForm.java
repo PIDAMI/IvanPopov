@@ -10,8 +10,10 @@ public class LoginForm extends Form<User> {
 
     @UI("//input[@id='name']")
     public TextField name;
+
     @UI("//input[@id='password']")
     public TextField password;
+
     @UI("#login-button")
     public Button submit;
 }

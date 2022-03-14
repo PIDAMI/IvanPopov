@@ -2,29 +2,33 @@ package com.epam.tc.hw.jdi.tests;
 
 import static com.epam.jdi.light.driver.WebDriverUtils.killAllSeleniumDrivers;
 import static com.epam.jdi.light.elements.init.PageFactory.initSite;
+import static com.epam.tc.hw.jdi.steps.ActionStep.fillMetalColorForm;
+import static com.epam.tc.hw.jdi.steps.AssertStep.checkResultHasData;
 import static com.epam.tc.hw.jdi.uiobjects.site.JdiSite.indexPage;
-import static com.epam.tc.hw.jdi.uiobjects.site.JdiSite.metalsColorsPage;
 import static com.epam.tc.hw.jdi.uiobjects.site.pages.IndexPage.headerMenu;
-import static org.assertj.core.api.Assertions.assertThat;
 
+import com.epam.tc.hw.jdi.data.provider.FormDataProvider;
+import com.epam.tc.hw.jdi.entities.MetalsColorsFormEntry;
 import com.epam.tc.hw.jdi.steps.ActionStep;
 import com.epam.tc.hw.jdi.steps.AssertStep;
 import com.epam.tc.hw.jdi.uiobjects.site.JdiSite;
+import com.epam.tc.hw.jdi.uiobjects.site.custom.HeaderMenuData;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 public class MetalsColorsTest {
 
-    @BeforeSuite
+    @BeforeClass(alwaysRun = true)
     public void beforeSuite() {
         initSite(JdiSite.class);
     }
 
-    @AfterSuite
+    @AfterClass(alwaysRun = true)
     public void afterSuite() {
+        System.out.println("zxc");
         killAllSeleniumDrivers();
     }
 
@@ -34,19 +38,19 @@ public class MetalsColorsTest {
     }
 
     @AfterMethod
-    public void tearDown() {
-
+    static void logout() {
+        ActionStep.logout();
     }
 
-    @Test
-    public void testMetalsColorsForm() {
-        ActionStep actionStep = new ActionStep();
-        AssertStep assertStep = new AssertStep();
+    @Test(dataProvider = "metalsColorsFormData",
+          dataProviderClass = FormDataProvider.class)
+    public void testMetalsColorsForm(MetalsColorsFormEntry entry) {
 
-        actionStep.login();
-        assertStep.checkUserIsLoggedIn();
-        headerMenu.select("Metals & Colors");
-        assertThat(metalsColorsPage.isOpened()).isTrue();
+        ActionStep.login();
+        AssertStep.checkUserIsLoggedIn();
+        headerMenu.select(HeaderMenuData.MetalsColors);
+        AssertStep.checkMetalsColorsPageOpened();
+        fillMetalColorForm(entry);
+        checkResultHasData(entry);
     }
-
 }
