@@ -28,7 +28,6 @@ public class MetalsColorsTest {
 
     @AfterClass(alwaysRun = true)
     public void afterSuite() {
-        System.out.println("zxc");
         killAllSeleniumDrivers();
     }
 
@@ -45,7 +44,6 @@ public class MetalsColorsTest {
     @Test(dataProvider = "metalsColorsFormData",
           dataProviderClass = FormDataProvider.class)
     public void testMetalsColorsForm(MetalsColorsFormEntry entry) {
-
         ActionStep.login();
         AssertStep.checkUserIsLoggedIn();
         headerMenu.select(HeaderMenuData.MetalsColors);

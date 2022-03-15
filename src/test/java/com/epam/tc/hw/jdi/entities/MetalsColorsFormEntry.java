@@ -4,6 +4,7 @@ import com.jdiai.tools.DataClass;
 import java.util.List;
 
 public class MetalsColorsFormEntry extends DataClass<MetalsColorsFormEntry> {
+
     public List<String> summary;
     public List<String> elements;
     public String color;

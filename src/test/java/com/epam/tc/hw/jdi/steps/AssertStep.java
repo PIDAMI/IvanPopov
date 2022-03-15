@@ -10,14 +10,15 @@ import io.qameta.allure.Step;
 import java.util.List;
 
 public class AssertStep {
+
     @Step
     public static void checkUserIsLoggedIn() {
-        assertThat(userName.isDisplayed()).isTrue();
+        userName.is().displayed();
     }
 
     @Step
     public static void checkMetalsColorsPageOpened() {
-        assertThat(metalsColorsPage.isOpened()).isTrue();
+        metalsColorsPage.shouldBeOpened();
     }
 
     @Step

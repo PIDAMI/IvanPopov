@@ -7,9 +7,10 @@ public class FormDataProvider {
 
     @DataProvider(name = "metalsColorsFormData")
     public static Object[][] metalsColorsFormData() {
-        return MetalsColorsJsonReader.readData()
-                                     .stream()
-                                     .map(entry -> new Object[]{entry})
-                                     .toArray(Object[][]::new);
+        return MetalsColorsJsonReader
+            .readData()
+            .stream()
+            .map(entry -> new Object[]{entry})
+            .toArray(Object[][]::new);
     }
 }

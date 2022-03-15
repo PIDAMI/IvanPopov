@@ -15,6 +15,7 @@ public enum HeaderMenuData {
     MetalsColors("Metals & Colors");
 
     public String value;
+
     HeaderMenuData(String value) {
         this.value = value;
     }
