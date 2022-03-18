@@ -6,6 +6,9 @@
   <test name="Void Page Objects">
     <classes>
       <class name = "com.epam.tc.hw3.ex1.FirstExerciseTest">
+  <listeners>
+    <listener class-name="com.epam.tc.hw4.listeners.ScreenshotListener"/>
+  </listeners>
       <methods>
         <include name="firstExerciseWithVoidPagesTest" />
       </methods>
@@ -14,7 +17,6 @@
       <methods>
         <include name="secondExerciseWithVoidPagesTest" />
       </methods>
-      </class>
     </classes>
   </test>
 

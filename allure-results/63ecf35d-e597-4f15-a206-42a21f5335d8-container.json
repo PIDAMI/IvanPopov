@@ -1,0 +1,1 @@
+{"uuid":"63ecf35d-e597-4f15-a206-42a21f5335d8","name":"Void Page Objects suite","children":["a36b6d21-40f2-4759-8dad-8e73d6f5de00"],"befores":[{"name":"beforeSuite","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1645731470779,"stop":1645731471852}],"afters":[],"start":1645731470744,"stop":1645731485125}
