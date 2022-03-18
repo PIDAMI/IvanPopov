@@ -3,27 +3,20 @@
 
 <suite name = "Void Page Objects suite">
 
+  <test name="Void Page Objects">
+    <classes>
+      <class name = "com.epam.tc.hw3.ex1.FirstExerciseTest">
   <listeners>
     <listener class-name="com.epam.tc.hw4.listeners.ScreenshotListener"/>
   </listeners>
-
-  <test name="Void Page Objects">
-    <classes>
-      <class name = "com.epam.tc.hw4.ex1.FirstExerciseTest">
       <methods>
         <include name="firstExerciseWithVoidPagesTest" />
       </methods>
       </class>
-      <class name = "com.epam.tc.hw4.ex2.SecondExerciseTest">
+      <class name = "com.epam.tc.hw3.ex2.SecondExerciseTest">
       <methods>
         <include name="secondExerciseWithVoidPagesTest" />
       </methods>
-      </class>
-      <class name="com.epam.tc.hw4.failing.FailingTest">
-        <methods>
-          <include name="failTest" />
-        </methods>
-      </class>
     </classes>
   </test>
 
