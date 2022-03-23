@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.epam.tc</groupId>
-    <artifactId>hw4</artifactId>
+    <artifactId>hw.jdi</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -18,16 +18,25 @@
         <webdrivermanager.version>5.0.3</webdrivermanager.version>
         <selenuim-java.version>4.0.0</selenuim-java.version>
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
+        <jackson.version>2.13.0</jackson.version>
     </properties>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.epam.jdi</groupId>
+            <artifactId>jdi-light-html</artifactId>
+            <version>RELEASE</version>
+        </dependency>
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>${webdrivermanager.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
@@ -72,7 +81,6 @@
         </dependency>
     </dependencies>
 
-
     <build>
         <pluginManagement>
             <plugins>
@@ -95,21 +103,12 @@
 
     <profiles>
         <profile>
-            <id>voids</id>
+            <id>default</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <suite.xml.name>voids-suite.xml</suite.xml.name>
-            </properties>
-        </profile>
-        <profile>
-            <id>fluents</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <suite.xml.name>fluents-suite.xml</suite.xml.name>
+                <suite.xml.name>default-suite.xml</suite.xml.name>
             </properties>
         </profile>
     </profiles>
