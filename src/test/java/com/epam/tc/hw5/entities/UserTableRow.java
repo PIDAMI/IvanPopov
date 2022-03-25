@@ -10,10 +10,6 @@ public class UserTableRow {
     private String userName;
     private Boolean isCheckboxChecked;
 
-    public static void main(String[] args) {
-
-    }
-
     public UserTableRow(Long number, Role selectedValue,
                         String description, String userName,
                         Boolean isCheckboxChecked) {
@@ -47,26 +43,6 @@ public class UserTableRow {
             return res;
         });
     }
-
-//    public boolean isCheckboxChecked() {
-//        return isCheckboxChecked;
-//    }
-//
-//    public long getNumber() {
-//        return number;
-//    }
-//
-//    public Role getSelectedValue() {
-//        return selectedValue;
-//    }
-//
-//    public String getDescription() {
-//        return description;
-//    }
-//
-//    public String getUserName() {
-//        return userName;
-//    }
 
     public enum Role {
         ADMIN("ADMIN"),
