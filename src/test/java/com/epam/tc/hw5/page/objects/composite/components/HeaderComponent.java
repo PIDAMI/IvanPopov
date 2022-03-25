@@ -8,8 +8,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HeaderComponent extends AbstractBaseComponent {
 
@@ -25,21 +23,28 @@ public class HeaderComponent extends AbstractBaseComponent {
 
     @Step("Getting navigation buttons' text")
     public void clickServiceButton(String buttonText) {
-        List<WebElement> button = navigationButtons
+        List<WebElement> buttons = navigationButtons
             .stream()
             .filter(el -> {
                 WebElement childElementWithText = el.findElement(By.xpath("./a"));
                 return childElementWithText.getText().trim().equalsIgnoreCase(buttonText);
             })
             .collect(Collectors.toList());
-        button.get(0).click();
+
+        if (buttons.size() > 0) {
+            buttons.get(0).click();
+        }
     }
 
     public void clickButtonInService(String buttonText) {
-        List<WebElement> buttons = serviceButtons.stream()
-                                                 .filter(el -> el.getText().trim().equalsIgnoreCase(buttonText))
-                                                 .collect(Collectors.toList());
-        buttons.get(0).click();
+        List<WebElement> buttons = serviceButtons
+            .stream()
+            .filter(el -> el.getText().trim().equalsIgnoreCase(buttonText))
+            .collect(Collectors.toList());
+
+        if (buttons.size() > 0) {
+            buttons.get(0).click();
+        }
     }
 
 }

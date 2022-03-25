@@ -71,7 +71,7 @@ public class UserTableActionStep extends AbstractStep {
         checkSizeTable(expectedNumberOfCheckboxes);
     }
 
-    public void checkSizeTable(long expectedSize) {
+    private void checkSizeTable(long expectedSize) {
         UserTable table = tablePage.getTable();
         // if table has row without some field, test crushes
         assertThat(table.getRows().size()).isEqualTo(expectedSize);

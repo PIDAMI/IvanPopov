@@ -1,5 +1,7 @@
 package com.epam.tc.hw5.entities;
 
+import java.util.Arrays;
+
 public class UserTableRow {
 
     private Long number;
@@ -8,6 +10,9 @@ public class UserTableRow {
     private String userName;
     private Boolean isCheckboxChecked;
 
+    public static void main(String[] args) {
+
+    }
 
     public UserTableRow(Long number, Role selectedValue,
                         String description, String userName,
@@ -28,34 +33,40 @@ public class UserTableRow {
             return false;
         }
         UserTableRow other = (UserTableRow) o;
-
-        return (other.number == null || number == null || other.number.equals(number))
-            && (other.selectedValue == null || selectedValue == null || other.selectedValue.equals(selectedValue))
-            && (other.description == null || description == null || other.description.equals(description))
-            && (other.userName == null || userName == null || other.userName.equals(userName))
-            && (other.isCheckboxChecked == null || isCheckboxChecked == null
-                || other.isCheckboxChecked.equals(isCheckboxChecked));
+        var fields = this.getClass().getDeclaredFields();
+        return Arrays.stream(fields).allMatch(field -> {
+            field.setAccessible(true);
+            boolean res = false;
+            try {
+                Object thisVal = field.get(this);
+                Object otherVal = field.get(other);
+                res = thisVal == null || otherVal == null || thisVal.equals(otherVal);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            return res;
+        });
     }
 
-    public boolean isCheckboxChecked() {
-        return isCheckboxChecked;
-    }
-
-    public long getNumber() {
-        return number;
-    }
-
-    public Role getSelectedValue() {
-        return selectedValue;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
+//    public boolean isCheckboxChecked() {
+//        return isCheckboxChecked;
+//    }
+//
+//    public long getNumber() {
+//        return number;
+//    }
+//
+//    public Role getSelectedValue() {
+//        return selectedValue;
+//    }
+//
+//    public String getDescription() {
+//        return description;
+//    }
+//
+//    public String getUserName() {
+//        return userName;
+//    }
 
     public enum Role {
         ADMIN("ADMIN"),

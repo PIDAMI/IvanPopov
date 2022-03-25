@@ -4,7 +4,7 @@ import java.util.List;
 
 public class UserTable {
 
-    private List<UserTableRow> rows;
+    private final List<UserTableRow> rows;
 
     public UserTable(List<UserTableRow> rows) {
         this.rows = rows;

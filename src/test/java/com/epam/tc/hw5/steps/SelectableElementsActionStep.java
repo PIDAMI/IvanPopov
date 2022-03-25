@@ -6,7 +6,6 @@ import com.epam.tc.hw5.context.TestContext;
 import com.epam.tc.hw5.entities.User;
 import com.epam.tc.hw5.page.objects.voids.DifferentElementsVoidPage;
 import com.epam.tc.hw5.page.objects.voids.JdiIndexVoidPage;
-import com.epam.tc.hw5.steps.AbstractStep;
 import io.cucumber.java.ParameterType;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -14,8 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SelectableElementsActionStep extends AbstractStep {
 
