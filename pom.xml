@@ -23,9 +23,15 @@
         <allure-testng.version>2.17.2</allure-testng.version>
         <cucumber.version>7.2.3</cucumber.version>
         <allure-maven.version>2.10.0</allure-maven.version>
+        <rest-assured.version>5.0.0</rest-assured.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${rest-assured.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
