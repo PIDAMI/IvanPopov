@@ -1,0 +1,530 @@
+{
+	"info": {
+		"_postman_id": "e87f6a17-01ba-4b1c-b0f9-28b85c04d61a",
+		"name": "IvanPopov2 simple trello collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create board by name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"boardId\", jsonData.id);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/{{port}}/boards/?name={{boardName}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"{{port}}",
+						"boards",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{boardName}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get board by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Board name is correct\", function () {",
+							"    pm.expect(pm.environment.get('boardName')).to.equal(pm.response.json().name);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "OAuth oauth_consumer_key=\\\"37529b3783f03b5e3bbaafb2f285008a\\\", oauth_token=\\\"05441886a2af6622288ca0bbdaaae618d4c110fb7822e3a1ac236b003875b554\\\"",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{domain}}/{{port}}/boards/{{boardId}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"{{port}}",
+						"boards",
+						"{{boardId}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "37529b3783f03b5e3bbaafb2f285008a",
+							"disabled": true
+						},
+						{
+							"key": "token",
+							"value": "36f7ae8fd57e3ab4d899a1fd6bb2e5649e43ae087c3476cbc23d2b4c783408ab",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update board name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/{{port}}/boards/{{boardId}}?name={{updatedName}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"{{port}}",
+						"boards",
+						"{{boardId}}"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{updatedName}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create list on board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"listId\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/{{port}}/boards/{{boardId}}/lists?name={{listName}}&pos={{listPosition}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"{{port}}",
+						"boards",
+						"{{boardId}}",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{listName}}"
+						},
+						{
+							"key": "pos",
+							"value": "{{listPosition}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get list by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/{{port}}/lists/{{listId}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"{{port}}",
+						"lists",
+						"{{listId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create card with given name and description",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"cardId\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/{{port}}/cards?name={{cardName}}&desc={{cardDescr}}&idList={{listId}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"{{port}}",
+						"cards"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{cardName}}"
+						},
+						{
+							"key": "desc",
+							"value": "{{cardDescr}}"
+						},
+						{
+							"key": "idList",
+							"value": "{{listId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get card by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"New card is not closed\", function () {",
+							"    pm.expect(pm.response.json().closed).to.equal(false);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/{{port}}/cards/{{cardId}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"{{port}}",
+						"cards",
+						"{{cardId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get cards in list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"New card is not closed\", function () {",
+							"    pm.expect(pm.response.json().length).to.equal(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/{{port}}/lists/{{listId}}/cards",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"{{port}}",
+						"lists",
+						"{{listId}}",
+						"cards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update card name",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/{{port}}/cards/{{cardId}}?name=new card name",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"{{port}}",
+						"cards",
+						"{{cardId}}"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "new card name"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "close list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/{{port}}/lists/{{listId}}?closed=true",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"{{port}}",
+						"lists",
+						"{{listId}}"
+					],
+					"query": [
+						{
+							"key": "closed",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete card by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.unset(\"cardId\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/{{port}}/cards/{{cardId}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"{{port}}",
+						"cards",
+						"{{cardId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete board by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.unset(\"boardId\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/{{port}}/boards/{{boardId}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"{{port}}",
+						"boards",
+						"{{boardId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth1",
+		"oauth1": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			},
+			{
+				"key": "consumerSecret",
+				"value": "{{secret}}",
+				"type": "string"
+			},
+			{
+				"key": "consumerKey",
+				"value": "{{api-key}}",
+				"type": "string"
+			},
+			{
+				"key": "signatureMethod",
+				"value": "HMAC-SHA1",
+				"type": "string"
+			},
+			{
+				"key": "version",
+				"value": "1.0",
+				"type": "string"
+			},
+			{
+				"key": "addParamsToHeader",
+				"value": false,
+				"type": "boolean"
+			},
+			{
+				"key": "addEmptyParamsToSign",
+				"value": false,
+				"type": "boolean"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "port",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "domain",
+			"value": "https://api.trello.com",
+			"type": "string"
+		},
+		{
+			"key": "api-key",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "secret",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
