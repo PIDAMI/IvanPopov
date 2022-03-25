@@ -31,7 +31,7 @@ public class HeaderComponent extends AbstractBaseComponent {
             })
             .collect(Collectors.toList());
 
-        if (buttons.size() > 0) {
+        if (!buttons.isEmpty()) {
             buttons.get(0).click();
         }
     }
@@ -42,7 +42,7 @@ public class HeaderComponent extends AbstractBaseComponent {
             .filter(el -> el.getText().trim().equalsIgnoreCase(buttonText))
             .collect(Collectors.toList());
 
-        if (buttons.size() > 0) {
+        if (!buttons.isEmpty()) {
             buttons.get(0).click();
         }
     }
