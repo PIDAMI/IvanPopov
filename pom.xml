@@ -18,11 +18,37 @@
         <webdrivermanager.version>5.0.3</webdrivermanager.version>
         <selenuim-java.version>4.0.0</selenuim-java.version>
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
+        <cucumber.version>7.2.3</cucumber.version>
+        <allure-testng.version>2.17.2</allure-testng.version>
+        <allure-maven.version>2.11.2</allure-maven.version>
+        <aspectj.version>1.9.7</aspectj.version>
+        <cucumber.version>7.1.0</cucumber.version>
+        <cucumber.allure.adapter.version>2.17.3</cucumber.allure.adapter.version>
         <jackson.version>2.13.0</jackson.version>
     </properties>
 
     <dependencies>
         <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-cucumber4-jvm</artifactId>
+            <version>${cucumber.allure.adapter.version}</version>
+        </dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
@@ -95,6 +121,9 @@
                         <suiteXmlFiles>
                             <suiteXmlFile>${testng.configs.path}/${suite.xml.name}</suiteXmlFile>
                         </suiteXmlFiles>
+                        <includes>
+                            <include>**/CucumberTestRunner.java</include>
+                        </includes>
                     </configuration>
                 </plugin>
             </plugins>
@@ -108,6 +137,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
+                <suite.xml.name>hw5.suite.xml</suite.xml.name>
                 <suite.xml.name>default-suite.xml</suite.xml.name>
             </properties>
         </profile>
