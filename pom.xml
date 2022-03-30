@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.epam.tc</groupId>
-    <artifactId>hw5</artifactId>
+    <artifactId>hw.jdi</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -24,6 +24,7 @@
         <aspectj.version>1.9.7</aspectj.version>
         <cucumber.version>7.1.0</cucumber.version>
         <cucumber.allure.adapter.version>2.17.3</cucumber.allure.adapter.version>
+        <jackson.version>2.13.0</jackson.version>
     </properties>
 
     <dependencies>
@@ -48,7 +49,25 @@
             <artifactId>allure-cucumber4-jvm</artifactId>
             <version>${cucumber.allure.adapter.version}</version>
         </dependency>
-
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.epam.jdi</groupId>
+            <artifactId>jdi-light-html</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenuim-java.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
@@ -58,6 +77,11 @@
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <version>${allure-testng.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
         </dependency>
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
@@ -83,7 +107,6 @@
         </dependency>
     </dependencies>
 
-
     <build>
         <pluginManagement>
             <plugins>
@@ -94,7 +117,6 @@
                     <configuration>
                         <argLine>
                             -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-<!--                            -Dcucumber.options="&#45;&#45;plugin io.qameta.allure.cucumber4jvm.AllureCucumber4Jvm"-->
                         </argLine>
                         <suiteXmlFiles>
                             <suiteXmlFile>${testng.configs.path}/${suite.xml.name}</suiteXmlFile>
@@ -110,12 +132,13 @@
 
     <profiles>
         <profile>
-            <id>cucumber</id>
+            <id>default</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
                 <suite.xml.name>hw5.suite.xml</suite.xml.name>
+                <suite.xml.name>default-suite.xml</suite.xml.name>
             </properties>
         </profile>
     </profiles>
